@@ -34,7 +34,20 @@ Clean Architecture divides the codebase into layers, each with its own responsib
 
 ## Folder Structure
 
-lib/ ├── data/ │ ├── datasources/ # Handles API and local data sources │ ├── models/ # DTOs and data models │ └── repositories/ # Implementation of the repository interfaces ├── domain/ │ ├── entities/ # Core business objects │ ├── repositories/ # Abstract repository interfaces │ └── usecases/ # Business logic and application-specific rules ├── presentation/ │ ├── bloc/ # State management using Bloc (or Provider) │ └── pages/ # Flutter widgets for the UI └── core/ # Common utilities, constants, and error handling
+```plaintext
+lib/
+├── data/
+│   ├── datasources/       # Handles API and local data sources
+│   ├── models/            # DTOs and data models
+│   └── repositories/      # Implementation of the repository interfaces
+├── domain/
+│   ├── entities/          # Core business objects
+│   ├── repositories/      # Abstract repository interfaces
+│   └── usecases/          # Business logic and application-specific rules
+├── presentation/
+│   ├── bloc/              # State management using Bloc (or Provider)
+│   └── pages/             # Flutter widgets for the UI
+└── core/                  # Common utilities, constants, and error handling
 
 
 ## Getting Started
