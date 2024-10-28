@@ -67,6 +67,7 @@ dependencies:
   connectivity_plus: ^6.1.0
   path_provider: ^2.1.4
   video_thumbnail_slider: ^0.0.3
+  myself: ^1.0.0
 
 dev_dependencies:
   flutter_test:

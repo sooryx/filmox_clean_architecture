@@ -632,6 +632,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  myself:
+    dependency: "direct main"
+    description:
+      name: myself
+      sha256: a0fc4c5d0fd56df225e85ffa2f8aaab344b3cb1ceead306a4fe070311d116000
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
