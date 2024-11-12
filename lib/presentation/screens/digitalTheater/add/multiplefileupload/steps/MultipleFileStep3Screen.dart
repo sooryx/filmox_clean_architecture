@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_3_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_3_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';

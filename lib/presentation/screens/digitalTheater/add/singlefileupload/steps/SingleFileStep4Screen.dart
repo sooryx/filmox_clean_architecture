@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/singlefileuploadmain/single_file_upload_step_4.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/singlefileuploadmain/single_file_upload_step_4.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

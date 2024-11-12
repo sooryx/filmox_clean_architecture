@@ -1,5 +1,5 @@
 import 'package:filmox_clean_architecture/presentation/screens/auth/signup/select_user_type.dart';
-import 'package:filmox_clean_architecture/providers/auth/auth_provdier.dart';
+import 'package:filmox_clean_architecture/presentation/providers/auth/auth_provdier.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

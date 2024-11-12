@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/domain/entity/profile/profile_entity.dart';
-import 'package:filmox_clean_architecture/providers/profile/profile_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/profile/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

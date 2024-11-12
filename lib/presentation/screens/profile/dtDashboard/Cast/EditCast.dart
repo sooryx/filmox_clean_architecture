@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/presentation/screens/profile/dtDashboard/DashBoardHelper.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

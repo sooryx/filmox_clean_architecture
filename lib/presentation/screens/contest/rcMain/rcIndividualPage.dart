@@ -1,5 +1,5 @@
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
-import 'package:filmox_clean_architecture/providers/contest/rc_main_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_main_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,7 +1,7 @@
 
 
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_main_provider.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_1_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_main_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_1_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_2_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/multipleFileUploadRepo/multiple_file_upload_step_2_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

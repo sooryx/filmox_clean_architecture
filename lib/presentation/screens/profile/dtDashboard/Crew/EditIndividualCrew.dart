@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';

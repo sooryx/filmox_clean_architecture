@@ -1,7 +1,7 @@
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_feed_entity/contest_feed_entity.dart';
-import 'package:filmox_clean_architecture/providers/contest/rc_feed_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_feed_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@ import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dashboard/dt_dashboard_entity.dart';
 import 'package:filmox_clean_architecture/presentation/screens/auth/signin/signin_screen.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/cupertino.dart';

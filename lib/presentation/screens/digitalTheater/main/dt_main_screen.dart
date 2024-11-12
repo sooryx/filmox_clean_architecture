@@ -1,5 +1,5 @@
 import 'package:filmox_clean_architecture/presentation/components/digitaltheater/digital_theater_main_layout.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/dt_main/digital_theater_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_main/digital_theater_provider.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

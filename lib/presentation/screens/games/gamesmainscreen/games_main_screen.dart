@@ -1,4 +1,6 @@
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
+import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDashboard2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -70,6 +72,13 @@ class GamesMainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded,
+              color: Theme.of(context).colorScheme.surface),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -137,71 +146,75 @@ class GamesMainScreen extends StatelessWidget {
   }
 
   Widget _buildGameCard(BuildContext context, Map<String, dynamic> game, TextStyle teamNameTextStyle, Color cardColor) {
-    return Card(
-      elevation: 4.0,
-      color: cardColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              backgroundImage: NetworkImage(game["team1Logo"]),
-            ),
-            const Spacer(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  game["team1"],
-                  style: teamNameTextStyle,
-                ),
-                const SizedBox(height: 5.0),
-                Text(
-                  game["team1Score"],
-                  style: const TextStyle(
+    return InkWell(
+      onTap: () =>    Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => CricketDashboard2())),
+      child: Card(
+        elevation: 4.0,
+        color: cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CircleAvatar(
+                backgroundImage: NetworkImage(game["team1Logo"]),
+              ),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    game["team1"],
+                    style: teamNameTextStyle,
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    game["team1Score"],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                child: Text(
+                  ":",
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
                   ),
-                ),
-              ],
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-              child: Text(
-                ":",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
                 ),
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  game["team2"],
-                  style: teamNameTextStyle,
-                ),
-                const SizedBox(height: 5.0),
-                Text(
-                  game["team2Score"],
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    game["team2"],
+                    style: teamNameTextStyle,
                   ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            CircleAvatar(
-              backgroundImage: NetworkImage(game["team2Logo"]),
-            ),
-          ],
+                  const SizedBox(height: 5.0),
+                  Text(
+                    game["team2Score"],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              CircleAvatar(
+                backgroundImage: NetworkImage(game["team2Logo"]),
+              ),
+            ],
+          ),
         ),
       ),
     );

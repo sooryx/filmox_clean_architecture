@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/traler_booster/trailer_booster_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/traler_booster/trailer_booster_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

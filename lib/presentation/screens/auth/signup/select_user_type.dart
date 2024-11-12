@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:filmox_clean_architecture/providers/auth/auth_provdier.dart';
+import 'package:filmox_clean_architecture/presentation/providers/auth/auth_provdier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/add/singlefileuploadmain/single_file_upload_step_3.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/add/singlefileuploadmain/single_file_upload_step_3.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

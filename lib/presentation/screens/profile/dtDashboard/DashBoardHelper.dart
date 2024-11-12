@@ -1,6 +1,6 @@
 
 import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dashboard/dt_dashboard_entity.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

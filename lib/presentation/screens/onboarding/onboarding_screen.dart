@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/presentation/screens/auth/signin/signin_screen.dart';
-import 'package:filmox_clean_architecture/providers/onboarding/onboarding_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/onboarding/onboarding_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/material.dart';

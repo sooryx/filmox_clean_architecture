@@ -1,7 +1,7 @@
 import 'package:filmox_clean_architecture/core/errors/app_exceptions.dart';
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/presentation/screens/entrypoint/entry_point.dart';
-import 'package:filmox_clean_architecture/providers/auth/auth_provdier.dart';
+import 'package:filmox_clean_architecture/presentation/providers/auth/auth_provdier.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/cupertino.dart';

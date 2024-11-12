@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
 import 'package:filmox_clean_architecture/presentation/screens/contest/rclive/rcupload/rc_upload_screen.dart';
-import 'package:filmox_clean_architecture/providers/contest/rc_upload_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_upload_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
 import 'package:flutter/cupertino.dart';
