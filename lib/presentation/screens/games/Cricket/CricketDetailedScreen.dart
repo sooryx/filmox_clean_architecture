@@ -1,7 +1,6 @@
 
-import 'package:filmox_clean_architecture/presentation/screens/games/Commons/MainDashBoardScreen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/Commons/WatchPartyScreen.dart';
-import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDashboard.dart';
+import 'package:filmox_clean_architecture/presentation/screens/games/Commons/main_dashboard_screen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/Helper/CricketTeamsScreen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/Helper/MatchInfo.dart';
 import 'package:flutter/gestures.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'Helper/CricketScorecardScreen.dart';
+import 'cricket_dashboard.dart';
 
 class Cricketdetailedscreen extends StatefulWidget {
   const Cricketdetailedscreen({super.key});

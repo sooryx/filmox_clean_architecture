@@ -50,8 +50,10 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
           slivers: [
     SliverAppBar(
                 pinned: false,
-                expandedHeight: 220.h,
+                leading: SizedBox.shrink(),
+                expandedHeight: 200.h,
                 flexibleSpace: FlexibleSpaceBar(
+
                   background: PageView.builder(
                     controller: bannerPageController,
                     physics: const ClampingScrollPhysics(),
@@ -77,7 +79,7 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
                                   image: CachedNetworkImageProvider(
                                     "${UrlStrings.imageUrl}${widget.banners[index].banner}",
                                   ),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -89,11 +91,17 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                           child: Center(
-                            child: SizedBox(
-                              height: 220.h,
-                              child: BannerVideoPlayerWithControls(
-                                videoUrl: UrlStrings.videoUrl +
-                                    widget.banners[index].banner,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 220.h,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  child: BannerVideoPlayerWithControls(
+                                    videoUrl: UrlStrings.videoUrl +
+                                        widget.banners[index].banner,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -129,7 +137,7 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
                           });
                           pageController.jumpToPage(index);
                         },
-                        child: _buildCategoryItem("All", isSelected, 100.w),
+                        child: _buildCategoryItem("All", isSelected, 80.w),
                       );
                     } else {
                       var categoryIndex = index - 1;
@@ -219,19 +227,18 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
                     },
                     child: Hero(
                       tag: section.digitalTheaterEntity[digitalTheaterIndex].name,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.r),
-                        child: Container(
-                          height: 80.h,
-                          width: 140.w,
-                          margin: EdgeInsets.symmetric(horizontal: 10.w),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: CachedNetworkImageProvider(
-                                "${UrlStrings.imageUrl}${section.digitalTheaterEntity[digitalTheaterIndex].poster}",
-                              ),
-                              fit: BoxFit.cover,
+                      child: Container(
+                        height: 80.h,
+                        width: 140.w,
+                        margin: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+
+                          image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                              "${UrlStrings.imageUrl}${section.digitalTheaterEntity[digitalTheaterIndex].poster}",
                             ),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -271,20 +278,19 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
               },
               child: Hero(
                 tag: category.digitalTheaterEntity[index].name,
-                child: ClipRRect(
-                  child: Container(
-                    height: 80.h,
-                    width: 140.w,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: 10.w, vertical: 10.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          "${UrlStrings.imageUrl}${category.digitalTheaterEntity[index].poster}",
-                        ),
-                        fit: BoxFit.cover,
+                child: Container(
+                  height: 80.h,
+                  width: 140.w,
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 10.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+
+                    image: DecorationImage(
+                      image: CachedNetworkImageProvider(
+                        "${UrlStrings.imageUrl}${category.digitalTheaterEntity[index].poster}",
                       ),
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ).animate().fadeIn(),
@@ -297,10 +303,9 @@ class _ReusableDigitalTheaterPageState extends State<ReusableDigitalTheaterPage>
 
   Widget _buildCategoryItem(String title, bool isSelected, double width) {
     return AnimatedContainer(
-      curve: Curves.easeInOut,
+      curve: Curves.linear,
       duration: const Duration(milliseconds: 800),
-      margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-      height: 40.h,
+      margin: EdgeInsets.symmetric(horizontal: 2.w, vertical: 15.h),
       width: width,
       decoration: BoxDecoration(
         gradient: isSelected

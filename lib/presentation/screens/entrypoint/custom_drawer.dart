@@ -1,8 +1,6 @@
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
 import 'package:filmox_clean_architecture/presentation/screens/auth/signin/signin_screen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/add/add_digital_theater.dart';
-import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDashboard2.dart';
-import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDetailedScreen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/gamesmainscreen/games_main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -6,14 +6,14 @@ import 'package:page_transition/page_transition.dart';
 
 import 'CricketDetailedScreen.dart';
 
-class CricketDashboard2 extends StatefulWidget {
-  const CricketDashboard2({super.key});
+class CricketIntroScreen extends StatefulWidget {
+  const CricketIntroScreen({super.key});
 
   @override
-  State<CricketDashboard2> createState() => _CricketDashboard2State();
+  State<CricketIntroScreen> createState() => _CricketIntroScreenState();
 }
 
-class _CricketDashboard2State extends State<CricketDashboard2>
+class _CricketIntroScreenState extends State<CricketIntroScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _leftSlideAnimation;

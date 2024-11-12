@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDashboard.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDetailedScreen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/cricket_dashboard.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 
 import 'package:flutter/material.dart';

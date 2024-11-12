@@ -72,6 +72,7 @@ dependencies:
   flutter_gallery_3d:
   flutter_staggered_grid_view:
   toggle_switch:
+  sliding_up_panel:
 
 dev_dependencies:
   flutter_test:
