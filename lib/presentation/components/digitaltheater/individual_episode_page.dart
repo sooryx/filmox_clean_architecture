@@ -1,5 +1,5 @@
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/domain/entity/digitalTheater/digital_theater_main_entity.dart';
+import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dt_main/digital_theater_main_entity.dart';
 import 'package:filmox_clean_architecture/presentation/components/digitaltheater/individual_video_player.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:filmox_clean_architecture/widgets/custom_video_player.dart';
@@ -50,56 +50,48 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
           appBar: orientation == Orientation.landscape
               ? null
               : AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new_rounded,
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            title: Text(
-              _currentEpisode?.name ?? "",
-              style: const TextStyle(color: Colors.white),
-            ),
-            actions: [
-              const Icon(
-                Icons.share,
-                color: Colors.blue,
-              ),
-              SizedBox(
-                width: 10.w,
-              )
-            ],
-          ),
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back_ios_new_rounded,
+                        color: Theme.of(context).colorScheme.primary),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  title: Text(
+                    _currentEpisode?.name ?? "",
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  actions: [
+                    const Icon(
+                      Icons.share,
+                      color: Colors.blue,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    )
+                  ],
+                ),
           body: orientation == Orientation.landscape
               ? _currentEpisode!.isYoutubeUrl
-              ? YouTubePlayerWidget(
-              key: ValueKey(_currentEpisode?.mediaLink),
-              height: 240.h,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              videoUrl: _currentEpisode?.mediaLink ?? "",
-              showControls: true)
-              : VideoPlayerWidget(
-              key: ValueKey(_currentEpisode?.mediaLink),
-              height: 240.h,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              url: UrlStrings.videoUrl + (_currentEpisode?.mediaLink ?? ""),
-              loadingWidget: Loadingscreen())
+                  ? YouTubePlayerWidget(
+                      key: ValueKey(_currentEpisode?.mediaLink),
+                      height: 240.h,
+                      width: MediaQuery.of(context).size.width,
+                      videoUrl: _currentEpisode?.mediaLink ?? "",
+                      showControls: true)
+                  : VideoPlayerWidget(
+                      key: ValueKey(_currentEpisode?.mediaLink),
+                      height: 240.h,
+                      width: MediaQuery.of(context).size.width,
+                      url: UrlStrings.videoUrl +
+                          (_currentEpisode?.mediaLink ?? ""),
+                      loadingWidget: Loadingscreen())
               : ListView(
-            children: [
-              header(),
-              episodes(),
-            ],
-          ),
+                  children: [
+                    header(),
+                    episodes(),
+                  ],
+                ),
         );
       },
     );
@@ -120,7 +112,7 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: EpisodeWidgetIndividualPage(
                 videoUrl: widget.episodesList[index].mediaLink,
-                title: widget.episodesList[index].name ,
+                title: widget.episodesList[index].name,
                 episodenumber: index + 1,
                 // currentPlaying: '1',
                 index: index.toString(),
@@ -135,27 +127,22 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
       children: [
         _currentEpisode!.isYoutubeUrl
             ? YouTubePlayerWidget(
-            key: ValueKey(_currentEpisode?.mediaLink),
-            height: 240.h,
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
-            videoUrl: _currentEpisode?.mediaLink ?? "",
-            showControls: true)
+                key: ValueKey(_currentEpisode?.mediaLink),
+                height: 240.h,
+                width: MediaQuery.of(context).size.width,
+                videoUrl: _currentEpisode?.mediaLink ?? "",
+                showControls: true)
             : VideoPlayerWidget(
-          key: ValueKey(_currentEpisode?.mediaLink),
-          height: 240.h,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
-          url: "${UrlStrings.videoUrl}${_currentEpisode?.mediaLink ?? ""}",
-          loadingWidget: Loadingscreen(),
-        ),
+                key: ValueKey(_currentEpisode?.mediaLink),
+                height: 240.h,
+                width: MediaQuery.of(context).size.width,
+                url:
+                    "${UrlStrings.videoUrl}${_currentEpisode?.mediaLink ?? ""}",
+                loadingWidget: Loadingscreen(),
+              ),
         SizedBox(height: 20.h),
         Text(
-          widget.currentSeason.name ,
+          widget.currentSeason.name,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
@@ -179,8 +166,7 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) =>
-                            IndividualVideoPlayer(
+                        builder: (context) => IndividualVideoPlayer(
                               title: widget.currentSeason.name,
                               isYoutube: widget.currentSeason.isYoutubeurl,
                               videoUrl: widget.currentSeason.trailer,
@@ -189,11 +175,7 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
               child: Container(
                 padding: EdgeInsets.all(8.dg),
                 decoration: BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary
-                      .withOpacity(0.1),
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Row(
@@ -217,9 +199,7 @@ class _IndividualEpisodePageState extends State<IndividualEpisodePage> {
         SizedBox(
           width: 330.w,
           child: Text(
-            "Season ${widget.currentSeason.name}, Episode ${_currentEpisode
-                ?.name ?? ""}: ${_currentEpisode?.descritption ??
-                "No description available"}",
+            "Season ${widget.currentSeason.name}, Episode ${_currentEpisode?.name ?? ""}: ${_currentEpisode?.descritption ?? "No description available"}",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12.sp),
           ),

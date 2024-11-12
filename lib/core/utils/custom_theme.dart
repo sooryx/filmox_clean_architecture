@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme {
   static ThemeData get theme {
     return ThemeData(
+        // primaryColor: const Color(0xFF1CB5E0),
         primaryColor: const Color(0xFF1CB5E0),
         scaffoldBackgroundColor: const Color(0xFF171717),
         // scaffoldBackgroundColor: const Color(0xFF2C2C2C),

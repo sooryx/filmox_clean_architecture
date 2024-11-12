@@ -9,7 +9,7 @@ class AuthRepository {
   SharedPreferencesManager();
 
 
-  Future<void> signin({
+  Future<UserInfoEntity> signin({
     required String phoneNumber,
     required String otp,
   }) async {
@@ -17,17 +17,35 @@ class AuthRepository {
       'phone': phoneNumber,
       'otp': otp,
     });
+
     if (response.containsKey('access_token')) {
       String accessToken = response['access_token'];
       await sharedPreferencesManager.setAccessToken(accessToken);
+
+      var user = response['user'];
+      var profile = response['profile'];
+
+      return
+        UserInfoEntity(
+          userName: user['username'],
+          userType: user['type'],
+          userImage: profile['profile_photo'],
+        );
+
+    } else {
+      // Handle the case where the access token is not present
+      throw Exception('Failed to sign in');
     }
-    return response;
   }
+
+
   Future<List<UserTypeEntity>> fetchUserTypes() async {
     final response = await _apiService.get('/userTypeScreen');
     final dataModel = UserTypeModel.fromJson(response);
-    return dataModel.data.map((i) => UserTypeEntity(image: i.media,description: i.description)).toList();
+    return dataModel.data.map((i) =>
+        UserTypeEntity(image: i.media, description: i.description)).toList();
   }
+
   Future<void> signup({
     required String name,
     required String phoneNumber,

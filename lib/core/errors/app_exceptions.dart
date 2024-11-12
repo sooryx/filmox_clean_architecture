@@ -18,6 +18,10 @@ class BadRequestException extends AppException {
   BadRequestException(String message) : super(message, 'Invalid Request');
 }
 
+class ServerException extends AppException {
+  ServerException(String message) : super(message, 'Server Busy');
+}
+
 class UnauthorizedException extends AppException {
   UnauthorizedException(String message) : super(message, 'Unauthorized');
 

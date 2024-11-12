@@ -1,46 +1,47 @@
 class AppConstants {
-  static const String appName = 'My Clean Architecture App';
-  static const int apiTimeoutDuration = 30; // in seconds
-
-  // Commonly used URLs
-  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
-
-  // Regular expressions for validation
+  // Regular Expressions
   static const String emailRegex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$';
 
-
-
+  // Base Paths
   static const String basePath = 'assets/images/';
   static const String baseAnimation = 'assets/animations/';
+
+  // Logos
   static const String filmoxLogo = '${basePath}logo.png';
 
+  // Loading Animations
   static const String loginLoadingDialogAnimation = '${baseAnimation}login_loading.json';
   static const String dialogLoading = '${baseAnimation}dialogLoading.json';
+  static const String noEpisodes = '${baseAnimation}no_data.json';
+  static const String videoUploading = '${baseAnimation}video_uploading.json';
+  static const String successVideoUpload = '${baseAnimation}video_uploaded_success.json';
 
-  static String digiTheaterSingle = "${basePath}singlemediaupload.jpg";
-  static String digiTheaterMultiple = "${basePath}multiple.jpg";
-  static String digiTheaterTrailer = "${basePath}trailer.jpg";
-  static String digitalTheaterDrawerIcon = "${basePath}digitalTheaterDrawerIcon.png";
-  static String jobsDrawerIcon = "${basePath}jobsdrawerIcon.png";
-  static String mediaDrawerIcon = "${basePath}mediaDrawerIcon.png";
+  // Icons
+  static const String uploadIcon = '${basePath}upload.png';
+  static const String allIcon = '${basePath}all_icon.png';
 
+  // Digital Theater Images
+  static const String digiTheaterSingle = '${basePath}singlemediaupload.jpg';
+  static const String digiTheaterMultiple = '${basePath}multiple.jpg';
+  static const String digiTheaterTrailer = '${basePath}trailer.jpg';
+  static const String digitalTheaterDrawerIcon = '${basePath}digitalTheaterDrawerIcon.png';
+  static const String jobsDrawerIcon = '${basePath}jobsdrawerIcon.png';
+  static const String mediaDrawerIcon = '${basePath}mediaDrawerIcon.png';
+  static const String gamesDrawerIcon = '${basePath}games.png';
 
-  static String digiSeries = "${basePath}series.jpeg";
-  static String digiMovie = "${basePath}movies.jpeg";
-  static String noEpisodes = "${baseAnimation}no_data.json";
+  // Series and Movies
+  static const String digiSeries = '${basePath}series.jpeg';
+  static const String digiMovie = '${basePath}movies.jpeg';
 
-  static String videouploading = "${baseAnimation}video_uploading.json";
-  static String uploadIcon = "${basePath}upload.png";
-  static String successVideoUpload =
-      "${baseAnimation}video_uploaded_success.json";
+  // Contest Animations
+  static const String nextAnimation = '${baseAnimation}next.json';
+  static const String votedLottie = '${baseAnimation}votes_lottie.json';
+  static const String noResult = '${baseAnimation}no_result.json';
 
-  static String allIcon = '${basePath}all_icon.png';
-  ///Contest
-  static String nextAnimation = "${baseAnimation}next.json";
-  static String votedLottie = "${baseAnimation}votes_lottie.json";
-  static String no_result = "${baseAnimation}no_result.json";
+  // Error Screens
+  static const String mainError = '${basePath}error_main.png';
 
-
+  // Miscellaneous Images
+  static const String scareCrow = '${basePath}scarecrow.png';
+  static const String joker = '${basePath}joker.png';
 }
-
-

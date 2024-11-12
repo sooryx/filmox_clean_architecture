@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/domain/entity/digitalTheater/digital_theater_main_entity.dart';
+import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dt_main/digital_theater_main_entity.dart';
 import 'package:filmox_clean_architecture/presentation/components/digitaltheater/individual_video_player.dart';
 import 'package:filmox_clean_architecture/presentation/components/digitaltheater/select_season_episode_component.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
 
 class IndividualDigitalTheaterScreen extends StatefulWidget {
   final DigitalTheaterEntity digitalTheaterData;
@@ -300,16 +299,13 @@ class _IndividualDigitalTheaterScreenState
                 children: [
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                child: IndividualVideoPlayer(
-                                    title: title ?? "",
-                                    isYoutube: widget
-                                        .digitalTheaterData.isTrailerYoutube,
-                                    videoUrl:widget.digitalTheaterData.isTrailerYoutube ? widget.digitalTheaterData.trailerLink : (UrlStrings.videoUrl+widget.digitalTheaterData.trailerLink)
-                                      ),
-                                type: PageTransitionType.rightToLeft));
+                           Navigator.push(context,
+                                       CupertinoPageRoute(builder: (context) => IndividualVideoPlayer(
+                                           title: title ?? "",
+                                           isYoutube: widget
+                                               .digitalTheaterData.isTrailerYoutube,
+                                           videoUrl:widget.digitalTheaterData.isTrailerYoutube ? widget.digitalTheaterData.trailerLink : (UrlStrings.videoUrl+widget.digitalTheaterData.trailerLink)
+                                       ),));
                       },
                       child: Container(
                         width: 180.w,

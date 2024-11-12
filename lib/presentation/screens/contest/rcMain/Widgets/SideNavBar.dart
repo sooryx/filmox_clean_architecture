@@ -71,7 +71,7 @@ class _SideNavState extends State<SideNav> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    VerticalText(name:category.name,checked: widget.checkIndex == i),
+                    VerticalText(name:category.categoryName,checked: widget.checkIndex == i),
                     if (widget.checkIndex == i)
                       SizedBox(
                         width: 2.w,

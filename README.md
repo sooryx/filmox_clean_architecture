@@ -34,7 +34,7 @@ Clean Architecture divides the codebase into layers, each with its own responsib
 
 ## Folder Structure
 
-```plaintext
+    ```plaintext
 lib/
 ├── data/
 │   ├── datasources/       # Handles API and local data sources

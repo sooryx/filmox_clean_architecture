@@ -1,5 +1,7 @@
 import 'package:filmox_clean_architecture/presentation/components/entrypoint/custom_bottom_navbar.dart';
+import 'package:filmox_clean_architecture/presentation/screens/contest/rcMain/RegularContestMainScreen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/main/dt_main_screen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,9 +17,9 @@ class EntryPoint extends StatefulWidget {
 class _EntryPointState extends State<EntryPoint> {
   PageController _pageController = PageController();
   final List<Widget> pages = [
+    HomeScreen(),
     DigitalTheaterMainScreen(),
-    const Center(child: Text('Search Page')),
-    const Center(child: Text('Favorites Page')),
+    RegularContestMainScreen(),
     const Center(child: Text('Settings Page')),
   ];
   int currentPage = 0;
@@ -40,7 +42,7 @@ class _EntryPointState extends State<EntryPoint> {
             },
           ),
           Positioned(
-            bottom: 10,
+            bottom: 10.h,
             left: 0,
             right: 0,
             top: 0,

@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
+import 'package:filmox_clean_architecture/presentation/screens/contest/rcFeed/rc_feed_main_screen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/contest/rclive/rc_live_info_screen.dart';
 import 'package:filmox_clean_architecture/providers/contest/rc_main_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -26,36 +29,19 @@ class RightWidget extends StatelessWidget {
         itemCount: data.length,
         itemBuilder: (context, index) {
           var entry = data[index];
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: entry.name,
-                          style: TextStyle(
-                            fontSize: 36.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-             _buildPost(entry, context)
-             ]
-          );
+          return ListView(padding: EdgeInsets.zero, children: [
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 8.0,bottom: 10),
+            //   child: Text(
+            //     entry.categoryName,
+            //     textAlign: TextAlign.end,
+            //     style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            _buildPost(entry, context)
+          ]);
         },
       );
-
     }
   }
 
@@ -63,9 +49,7 @@ class RightWidget extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () async {
-          final provider = Provider.of<RcMainProvider>(
-              context,
-              listen: false);
+          final provider = Provider.of<RcMainProvider>(context, listen: false);
           await provider.fetchContests();
         },
         child: Column(
@@ -107,143 +91,144 @@ class RightWidget extends StatelessWidget {
     final Duration countdownDuration = countdownDetails['countdownDuration'];
     final String countdownText = countdownDetails['countdownText'];
     return InkWell(
-      splashColor: Theme.of(context).primaryColor,
+      splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
       enableFeedback: true,
-      borderRadius: BorderRadius.circular(15.r),
+      borderRadius: BorderRadius.circular(30.r),
       onTap: () {
         handleContestNavigation(context, countdownText, currentContest);
       },
       child: Hero(
-              tag: 'bg',
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 900),
-                height: 500.h,
-                margin: EdgeInsets.only(bottom: 15.h, left: 10.w, right: 10.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15.r)),
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(
-                      "${UrlStrings.imageUrl}${currentContest.poster}",
-                    ),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
+        tag: 'bg',
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 900),
+          height: 500.h,
+          margin: EdgeInsets.only(bottom: 15.h, left: 10.w, right: 10.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(40.r)),
+            image: DecorationImage(
+              image: CachedNetworkImageProvider(
+                currentContest.poster,
+              ),
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
+          ),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 180.h,
+              padding: EdgeInsets.all(10.w),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.8),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15.r),
+                  bottomRight: Radius.circular(15.r),
+                  topLeft: Radius.circular(30.r),
+                  topRight: Radius.circular(30.r),
                 ),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 180.h,
-                    padding: EdgeInsets.all(10.w),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15.r),
-                        bottomRight: Radius.circular(15.r),
-                        topLeft: Radius.circular(30.r),
-                        topRight: Radius.circular(30.r),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          currentContest.name ,
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    color: Colors.white,
-                                    fontSize: 22.sp,
-                                  ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    currentContest.name,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: Colors.white,
+                          fontSize: 22.sp,
                         ),
-                        if (countdownDuration > Duration.zero)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              countdownDuration.inDays != 0
-                                  ? CommonWidgets.CustomNeumorphicTimer(
-                                      context: context,
-                                      duration: countdownDuration,
-                                      height: 60.h,
-                                      width: 60.h,
-                                      isDay: true,
-                                    )
-                                  : const SizedBox.shrink(),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              countdownDuration.inHours != 0
-                                  ? CommonWidgets.CustomNeumorphicTimer(
-                                      context: context,
-                                      duration: countdownDuration,
-                                      height: 60.h,
-                                      width: 60.h,
-                                      isHour: true)
-                                  : const SizedBox.shrink(),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              countdownDuration.inMinutes != 0
-                                  ? CommonWidgets.CustomNeumorphicTimer(
-                                      context: context,
-                                      duration: countdownDuration,
-                                      height: 60.h,
-                                      width: 60.h,
-                                      isMinute: true)
-                                  : const SizedBox.shrink(),
-                              SizedBox(
-                                width: 8.w,
-                              ),
-                              countdownDuration.inSeconds != 0
-                                  ? CommonWidgets.CustomNeumorphicTimer(
-                                      context: context,
-                                      duration: countdownDuration,
-                                      height: 60.h,
-                                      width: 60.h,
-                                      isSecond: true,
+                  ),
+                  if (countdownDuration > Duration.zero)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        countdownDuration.inDays != 0
+                            ? CommonWidgets.CustomNeumorphicTimer(
+                                context: context,
+                                duration: countdownDuration,
+                                height: 60.h,
+                                width: 60.h,
+                                isDay: true,
+                              )
+                            : const SizedBox.shrink(),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        countdownDuration.inHours != 0
+                            ? CommonWidgets.CustomNeumorphicTimer(
+                                context: context,
+                                duration: countdownDuration,
+                                height: 60.h,
+                                width: 60.h,
+                                isHour: true)
+                            : const SizedBox.shrink(),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        countdownDuration.inMinutes != 0
+                            ? CommonWidgets.CustomNeumorphicTimer(
+                                context: context,
+                                duration: countdownDuration,
+                                height: 60.h,
+                                width: 60.h,
+                                isMinute: true)
+                            : const SizedBox.shrink(),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        countdownDuration.inSeconds != 0
+                            ? CommonWidgets.CustomNeumorphicTimer(
+                                context: context,
+                                duration: countdownDuration,
+                                height: 60.h,
+                                width: 60.h,
+                                isSecond: true,
                                 onDone: () {
-                                  final provider = Provider.of<RcMainProvider>(context,listen: false);
+                                  final provider = Provider.of<RcMainProvider>(
+                                      context,
+                                      listen: false);
                                   provider.fetchContests();
                                 },
                               )
-                                  : const SizedBox.shrink(),
-                            ],
-                          ),
-                        Text(
-                          countdownText,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        )
+                            : const SizedBox.shrink(),
                       ],
                     ),
-                  ),
-                ),
+                  Text(
+                    countdownText,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  )
+                ],
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 
-  void handleContestNavigation(
-      BuildContext context, String countdownText, ContestEntity currentContest) {
+  void handleContestNavigation(BuildContext context, String countdownText,
+      ContestEntity currentContest) {
     if (countdownText == "Voting Starts In" ||
         countdownText == "Contest Starts In") {
-      // Navigator.push(
-      //   context,
-      //   CupertinoPageRoute(
-      //     allowSnapshotting: true,
-      //     builder: (context) => RcLiveInfoScreen(
-      //       currentItemContest: currentContest,
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        CupertinoPageRoute(
+          allowSnapshotting: true,
+          builder: (context) => RcLiveInfoScreen(
+            currentItemContest: currentContest,
+          ),
+        ),
+      );
     } else if (countdownText == "Voting Ends In") {
-      // Navigator.push(
-      //   context,
-      //   CupertinoPageRoute(
-      //     builder: (context) => RegularContestFeedMainScreen(
-      //       contestID: currentContest.contestID ?? 0,
-      //       contestName: currentContest.title ?? "",
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => RegularContestFeedMainScreen(
+            contestID: currentContest.contestID ,
+            contestName: currentContest.name ,
+          ),
+        ),
+      );
     } else if (countdownText == "Voting Ended") {
       // Navigator.push(
       //   context,

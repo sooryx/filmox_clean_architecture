@@ -87,6 +87,7 @@ class _RCIndividualPageState extends State<RCIndividualPage>
           final provider =
           Provider.of<RcMainProvider>(context,
               listen: false);
+         await provider.fetchContests();
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

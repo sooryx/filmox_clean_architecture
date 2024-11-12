@@ -1,4 +1,5 @@
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
+import 'package:filmox_clean_architecture/presentation/screens/contest/rcRound/rc_round_main_screen.dart';
 import 'package:filmox_clean_architecture/providers/contest/rc_main_provider.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -89,7 +90,10 @@ class _RegularContestMainScreenState extends State<RegularContestMainScreen>
           ),
         ),
         actions: [
-          Icon(Icons.arrow_drop_up)
+          InkWell(
+              onTap: () =>    Navigator.push(context,
+                          CupertinoPageRoute(builder: (context) => RcRoundMainScreen())),
+              child: Icon(Icons.arrow_drop_down,color: Colors.white,))
         ],
       ),
       body: Consumer<RcMainProvider>(

@@ -1,14 +1,13 @@
 import 'package:filmox_clean_architecture/presentation/screens/entrypoint/entry_point.dart';
-import 'package:filmox_clean_architecture/providers/auth/auth_provdier.dart';
-import 'package:filmox_clean_architecture/providers/contest/rc_main_provider.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/digital_theater_provider.dart';
-import 'package:filmox_clean_architecture/providers/onboarding/onboarding_provider.dart';
+import 'package:filmox_clean_architecture/presentation/screens/games/Cricket/CricketDetailedScreen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'core/utils/custom_theme.dart';
 import 'core/utils/local_storage.dart';
-import 'presentation/screens/onboarding/onboarding_screen.dart';
+import 'core/utils/providers.dart';
+import 'presentation/screens/games/Cricket/CricketDashboard2.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -26,12 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => OnBoardingProvider(),),
-        ChangeNotifierProvider(create: (context) => AuthProvdier(),),
-        ChangeNotifierProvider(create: (context) => DigitalTheaterProvider(),),
-        ChangeNotifierProvider(create: (context) => RcMainProvider()..fetchContests(),)
-      ],
+      providers: providers,
       child: ScreenUtilInit(
           designSize: const Size(411.42857142857144, 843.4285714285714),
           minTextAdapt: true,
@@ -42,8 +36,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Filmox',
               theme: CustomTheme.theme,
-              home: EntryPoint(),
-
+              home: OnBoardingScreen(),
             );
           }),
     );

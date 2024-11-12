@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/domain/entity/digitalTheater/digital_theater_main_entity.dart';
+import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dt_main/digital_theater_main_entity.dart';
 import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/individual/individual_dt_main_screen.dart';
-import 'package:filmox_clean_architecture/providers/digitalTheater/digital_theater_provider.dart';
+import 'package:filmox_clean_architecture/providers/digitalTheater/dt_main/digital_theater_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_video_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

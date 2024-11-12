@@ -646,6 +646,43 @@ class CommonWidgets {
       ),
     );
   }
+  static Widget customButton({
+    required BuildContext context,
+    required String text,
+    IconData? icon, // Optional icon
+    required VoidCallback onPressed,
+    Color backgroundColor = Colors.transparent, // Default background color
+    Color textColor = Colors.white, // Default text color
+    Color? iconColor, // Optional icon color
+    EdgeInsetsGeometry padding =
+    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  }) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        padding: padding,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            text,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: iconColor ?? textColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold),
+          ),
+          if (icon != null) SizedBox(width: 2),
+          if (icon != null)
+            Icon(
+              icon,
+              color: iconColor ?? textColor,
+            ),
+        ],
+      ),
+    );
+  }
 }
 
 class _GradientTextField extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/domain/entity/digitalTheater/digital_theater_main_entity.dart';
+import 'package:filmox_clean_architecture/domain/entity/digitalTheater/dt_main/digital_theater_main_entity.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

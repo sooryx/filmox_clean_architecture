@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
-import 'package:filmox_clean_architecture/data/repositories/contest/contest_repo.dart';
+import 'package:filmox_clean_architecture/data/repositories/contest/contest_main/contest_main_repo.dart';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:myself/myself.dart';
 
 class RcMainProvider with ChangeNotifier {
-  ContestRepo _contestRepo = ContestRepo();
+  ContestMainRepo _contestRepo = ContestMainRepo();
 
-  ContestRepo get contestRepo => _contestRepo;
+  ContestMainRepo get contestRepo => _contestRepo;
   List<ContestEntity> _liveContests = [];
   List<ContestEntity> _upcomingContests = [];
   List<ContestEntity> _finishedContests = [];
@@ -31,8 +34,15 @@ class RcMainProvider with ChangeNotifier {
   }
 
   List<ContestEntity> get liveContests => _liveContests;
+
   List<ContestEntity> get upcomingContests => _upcomingContests;
+
   List<ContestEntity> get finishedContests => _finishedContests;
+
   DefaultPageStatus get status => _status;
+
   String get errorMessage => _errorMessage;
+
+
+
 }

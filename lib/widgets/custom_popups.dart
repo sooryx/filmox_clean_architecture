@@ -2,8 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:myself/myself.dart';
 import 'package:toastification/toastification.dart';
+void successPrint(String text){
+  return MySelfColor().printSuccess(text: text);
+}
 
+void errorPrint(String text){
+  return MySelfColor().printError(text: text);
+}
+void warningPrint(String text){
+  return MySelfColor().printWarning(text: text);
+}
+
+void variablePrint(String text){
+  return MySelfColor().colorPrint(Colors.blue, text);
+}
 customSuccessToast(BuildContext context, String message) {
   toastification.show(
     context: context,
@@ -199,4 +213,6 @@ void showCustomDialog({
       );
     },
   );
+
+
 }

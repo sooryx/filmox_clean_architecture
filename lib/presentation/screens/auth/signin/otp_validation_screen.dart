@@ -29,9 +29,7 @@ class OtpValidate extends StatelessWidget {
               : _buildBody(context));
     }
     return Center(child: Text("Error"),);
-    // Navigator.push(
-    //     context, CupertinoPageRoute(builder: (context) => const EntryPoint()));
-    // return customSuccessToast(context,"Already logged in");
+
   }
 
   Widget _buildBody(context) {
@@ -146,20 +144,23 @@ class OtpValidate extends StatelessWidget {
         });
   }
 
-  void _handleSignIn(context) async {
+  void _handleSignIn(BuildContext context) async {
     final provider = Provider.of<AuthProvdier>(context, listen: false);
 
     try {
       await provider.userSignin();
-         Navigator.push(context,
-                     CupertinoPageRoute(builder: (context) => EntryPoint()));
-    } catch (e) {
-      // Show appropriate error message based on the exception type
-      if (e is NoInternetException) {
-        customErrorToast(context, e.message);
-      } else {
-        customErrorToast(context, 'An error occurred: $e');
-      }
+      Navigator.push(context, CupertinoPageRoute(builder: (context) => EntryPoint()));
+    } on NoInternetException catch (e) {
+      customErrorToast(context, e.message);
+    } on PageNotFoundException catch (e) {
+      customErrorToast(context, 'Invalid token. Please log in again.');
+    } on ServerException catch(e){
+      customErrorToast(context, e.toString());
+
+    }
+    catch (e) {
+      customErrorToast(context, 'An error occurred: $e');
     }
   }
+
 }

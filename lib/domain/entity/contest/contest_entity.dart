@@ -1,7 +1,10 @@
 
 
+import 'package:filmox_clean_architecture/core/utils/urls.dart';
+
 class ContestEntity {
   int contestID;
+  int mediaType;
   String name;
   String categoryName;
   String poster;
@@ -15,11 +18,13 @@ class ContestEntity {
   List<GuestEntity>? guests;
   List<UserMediaEntity>? userMedia;
 
+
   ContestEntity({
     required this.contestID,
+    required this.mediaType,
     required this.name,
     required this.categoryName,
-    required this.poster,
+    required String poster,
     required this.startDate,
     required this.voteDate,
     required this.endDate,
@@ -29,7 +34,7 @@ class ContestEntity {
     this.banners,
     this.guests,
     this.userMedia,
-  });
+  }) : this.poster = '${UrlStrings.imageUrl}$poster'; // Prepend base URL to poster
 }
 
 class BannerEntity {
@@ -42,10 +47,10 @@ class BannerEntity {
   BannerEntity({
     this.id,
     this.bpId,
-    this.banner,
+    required String banner,
     this.type,
     this.status,
-  });
+  }) : banner = UrlStrings.imageUrl + banner;
 }
 
 class GuestEntity {
@@ -56,8 +61,8 @@ class GuestEntity {
   GuestEntity({
     this.id,
     this.name,
-    this.image,
-  });
+    required String image,
+  }) : image = UrlStrings.imageUrl + image;
 }
 
 class UserMediaEntity {
@@ -69,9 +74,11 @@ class UserMediaEntity {
 
   UserMediaEntity({
     required this.id,
-    required this.media,
+    required String media,
     required this.mediaType,
     required this.thumbnail,
     required this.status,
-  });
+  }): this.media = mediaType == 2 ?'${UrlStrings.imageUrl}$media' : '${UrlStrings.videoUrl}$media';
 }
+
+
