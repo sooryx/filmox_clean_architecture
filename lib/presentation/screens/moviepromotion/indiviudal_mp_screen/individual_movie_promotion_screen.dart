@@ -1,8 +1,9 @@
 import 'package:expandable_text/expandable_text.dart';
-import 'package:filmox/Constants/images.dart';
-import 'package:filmox/Screens/Entrypoint/bottomnavscreens/moviepromotion/components/movie_promotion_more_info_screen.dart';
-import 'package:filmox/screens/Loadingscreen/loadingscreen.dart';
-import 'package:filmox/widgets/CustomVideoPlayer.dart';
+import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
+import 'package:filmox_clean_architecture/presentation/screens/moviepromotion/components/movie_promotion_more_info_screen.dart';
+import 'package:filmox_clean_architecture/widgets/custom_video_player.dart';
+import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,9 +58,9 @@ class _IndividualMoviePromotionScreenState
   Widget _buildBackground(context) {
     List<String> title = ['Poster', 'Trailers', 'Audio Launch'];
     List<String> poster = [
-      AssetImages.scareCrow,
-      AssetImages.joker,
-      AssetImages.robo
+      AppConstants.scareCrow,
+      AppConstants.joker,
+      AppConstants.robo
     ];
     return Column(
       children: [
@@ -103,7 +104,7 @@ class _IndividualMoviePromotionScreenState
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -403,7 +404,7 @@ class _IndividualMoviePromotionScreenState
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

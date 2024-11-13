@@ -1,4 +1,4 @@
-import 'package:filmox/Screens/Entrypoint/bottomnavscreens/moviepromotion/indiviudal_mp_screen/individual_movie_promotion_screen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/moviepromotion/indiviudal_mp_screen/individual_movie_promotion_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

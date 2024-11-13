@@ -1,4 +1,4 @@
-import 'package:filmox/Widgets/custom_page_view.dart';
+import 'package:filmox_clean_architecture/presentation/components/moviepromotion/custom_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,6 +47,7 @@ class _MoviePromotionMoreInfoScreenState
           SliverPersistentHeader(
             pinned: true,
             floating: true,
+
             delegate: _SliverPersistentHeaderDelegate(context,
                 child: const CustomPageView(), image: widget.bgImage),
           ),

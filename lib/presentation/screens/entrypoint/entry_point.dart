@@ -1,10 +1,8 @@
 import 'package:filmox_clean_architecture/presentation/screens/contest/rcMain/RegularContestMainScreen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/main/dt_main_screen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/home/home_screen.dart';
-import 'package:filmox_clean_architecture/presentation/screens/moviepromotion/movie_promotion_screen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/moviepromotion/mp_main_screen/movie_promotion_main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../profile/profile_screen.dart';
 
@@ -18,11 +16,11 @@ class EntryPoint extends StatefulWidget {
 class _EntryPointState extends State<EntryPoint> {
   PageController _pageController = PageController();
   final List<Widget> pages = [
-    HomeScreen(),
+    const HomeScreen(),
     MoviePromotionScreen(),
     DigitalTheaterMainScreen(),
-    RegularContestMainScreen(),
-    ProfileScreen(),
+    const RegularContestMainScreen(),
+    const ProfileScreen(),
   ];
   int currentPage = 0;
 

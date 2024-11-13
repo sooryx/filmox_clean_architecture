@@ -19,6 +19,8 @@ class AppConstants {
   // Icons
   static const String uploadIcon = '${basePath}upload.png';
   static const String allIcon = '${basePath}all_icon.png';
+  static const String imdbicon = '${basePath}imdb.png';
+  static const String rtomatoe = '${basePath}rottenTomato.webp';
 
   // Digital Theater Images
   static const String digiTheaterSingle = '${basePath}singlemediaupload.jpg';

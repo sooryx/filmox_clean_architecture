@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
 import 'package:filmox_clean_architecture/widgets/custom_video_player.dart';
 import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,143 +36,59 @@ class _CustomPageViewState extends State<CustomPageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height - 50.h,
-          child: Column(
-            children: [
-              Expanded(
-                child: PageView.builder(
-                  itemCount: 3,
-                  controller: _pageController,
-                  itemBuilder: (context, index) {
-                    return AnimatedBuilder(
-                      animation: _pageController,
-                      builder: (context, child) {
-                        double pageOffset = _currentPage - index;
-                        double gauss = math.exp(
-                            -(math.pow((pageOffset.abs() - 0.5), 2) / 0.099));
+    return _buildOverview(
+      context,
+    );
+  }
 
-                        return _buildPage(context, index, gauss, pageOffset);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
+  Widget _buildOverview(
+    BuildContext context,
+  ) {
+    return Padding(
+      padding: EdgeInsets.all(16.dg),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTitle(context, 'Overview'),
+          SizedBox(
+              height: 250,
+              child: PageView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildGetTicketsCard(context),
+                  _buildCastPage(context, "Casts"),
+                  _buildCastPage(context, "Crews"),
+                ],
+              )),
+          SizedBox(height: 40.h),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.r),
+            child: VideoPlayerWidget(
+                height: 300.h,
+                width: MediaQuery.of(context).size.width,
+                url: 'https://assets.mixkit.co/videos/47050/47050-720.mp4',
+                loadingWidget: const Loadingscreen()),
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 50,
-              child: SmoothPageIndicator(
-                controller: _pageController,
-                count: 3,
-                effect: WormEffect(
-                    dotHeight: 10,
-                    dotWidth: 10,
-                    dotColor: Colors.white.withOpacity(0.2),
-                    activeDotColor: Colors.white),
-              ),
-            ),
-            IconButton(
-                onPressed: () => _pageController.animateToPage(
-                    (_pageController.page!.toInt() + 1),
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeIn),
-                icon: const Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ))
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _buildPage(
-      BuildContext context, int index, double gauss, double pageOffset) {
-    switch (index) {
-      case 0:
-        return _buildOverview(context, gauss, pageOffset);
-      case 1:
-        return _buildCastPage(context,'Cast');
-      case 2:
-        return _buildCastPage(context,'Crew');
-      default:
-        return Container();
-    }
-  }
-
-  Widget _buildOverview(BuildContext context, double gauss, double pageOffset) {
-    return Padding(
-      padding: EdgeInsets.all(16.dg),
-      child: Transform.translate(
-        offset: Offset(-120 * gauss * pageOffset.sign, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTitle(context, 'Overview'),
-            _buildGetTicketsCard(context),
-            SizedBox(height: 40.h),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.r),
-              child: VideoPlayerWidget(
-                  height: 300.h,
-                  width: MediaQuery.of(context).size.width,
-                  url: 'https://assets.mixkit.co/videos/47050/47050-720.mp4',
-                  loadingWidget: const Loadingscreen()),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            _buildRatingCard(context),
-          ],
-        ),
+          SizedBox(
+            height: 20.h,
+          ),
+          _buildRatingCard(
+            context,AppConstants.imdbicon,9.0
+          ),
+          SizedBox(height: 10.h,),
+          _buildRatingCard(
+            context,AppConstants.rtomatoe,7.5
+          ),
+        ],
       ),
     );
   }
 
 
-  Widget _buildCastPage(BuildContext context,String title ) {
-    return Padding(
-      padding: EdgeInsets.all(16.dg),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _buildTitle(context, title),
-            SizedBox(
-              height: 10.h,
-            ),
-            ListView.builder(
-              itemCount: castList.length,
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-        
-                return title == 'Cast' ?
-                _buildCastCards(role: castList[index].role,image: castList[index].image,description: castList[index].description,name: castList[index].name)
-                    :
-                _buildCastCards(role: crewList[index].role,image: crewList[index].image,description: crewList[index].description,name: crewList[index].name);
-
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _buildGetTicketsCard(context) {
-    return SizedBox(
-        child: Card(
+    return Card(
       elevation: 10,
       color: Colors.white.withOpacity(0.1),
       child: Padding(
@@ -256,18 +174,27 @@ class _CustomPageViewState extends State<CustomPageView> {
           ],
         ),
       ),
-    ));
+    );
   }
 
-  Widget _buildRatingCard(context) {
+  Widget _buildRatingCard(context, String image,double rating) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        Image.asset(
+          image,
+          height: 40.h,
+          width: 40.w,
+          fit: BoxFit.cover,
+        ),
+        SizedBox(
+          width: 10.w,
+        ),
         Stack(
           alignment: Alignment.center,
           children: [
             Text(
-              "8.0",
+              rating.toString(),
               style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(
@@ -275,7 +202,7 @@ class _CustomPageViewState extends State<CustomPageView> {
                 width: 50.h,
                 child: CircularProgressIndicator(
                   color: Colors.orange,
-                  value: 0.5,
+                  value:rating/10,
                   backgroundColor: Colors.grey.withOpacity(0.3),
                 )),
           ],
@@ -285,7 +212,7 @@ class _CustomPageViewState extends State<CustomPageView> {
         ),
         Expanded(
           child: Text(
-            'Rated 8.0 on IMDb, this film has garnered rave reviews for its compelling storyline, outstanding performances, and breathtaking cinematography.',
+            'Rated ${rating} on IMDb, this film has garnered rave reviews for its compelling storyline, outstanding performances, and breathtaking cinematography.',
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium
@@ -310,6 +237,65 @@ class _CustomPageViewState extends State<CustomPageView> {
         ],
       ).animate().fadeIn(duration: 600.ms, delay: 100.ms);
 
+  Widget _buildCastPage(BuildContext context, String title) {
+    return Card(
+      elevation: 10,
+      color: Colors.white.withOpacity(0.1),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10.dg),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(fontSize: 28.sp, fontWeight: FontWeight.bold),
+                  ),
+                  InkWell(
+                      onTap: () =>    Navigator.push(context,
+                          CupertinoPageRoute(builder: (context) => CastPage(
+                            castList: castList,
+                            isCast: title == 'Casts' ,
+                          ))),
+                      child: Text("View All",style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blue,fontWeight: FontWeight.bold),))
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              ListView.builder(
+                itemCount: castList.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return title == 'Casts'
+                      ? _buildCastCards(
+                      role: castList[index].role,
+                      image: castList[index].image,
+                      description: castList[index].description,
+                      name: castList[index].name)
+                      : _buildCastCards(
+                      role: crewList[index].role,
+                      image: crewList[index].image,
+                      description: crewList[index].description,
+                      name: crewList[index].name);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildCastCards({
     required String role,
     required String name,
@@ -325,29 +311,28 @@ class _CustomPageViewState extends State<CustomPageView> {
             role,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 22.sp,
+                fontSize: 18.sp,
                 color: Colors.grey),
           ),
           SizedBox(
-            height: 15.h,
+            height: 12.h,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 100.h,
-                width: 100.w,
+                height: 80.h,
+                width: 80.w,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.r),
                   child: CachedNetworkImage(
-                    placeholder: (context, url) => const Loadingscreen(),
+                      placeholder: (context, url) => const Loadingscreen(),
                       fit: BoxFit.cover,
-                      imageUrl:
-                          image),
+                      imageUrl: image),
                 ),
               ),
               SizedBox(
-                width: 10.w,
+                width: 8.w,
               ),
               Expanded(
                 child: Column(
@@ -359,10 +344,10 @@ class _CustomPageViewState extends State<CustomPageView> {
                           .textTheme
                           .headlineMedium
                           ?.copyWith(
-                              fontWeight: FontWeight.bold, fontSize: 18.sp),
+                          fontWeight: FontWeight.bold, fontSize: 16.sp),
                     ),
                     SizedBox(
-                      height: 5.h,
+                      height: 2.h,
                     ),
                     Text(
                       description,
@@ -370,9 +355,9 @@ class _CustomPageViewState extends State<CustomPageView> {
                           .textTheme
                           .headlineMedium
                           ?.copyWith(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14.sp,
-                              color: Colors.grey),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12.sp,
+                          color: Colors.grey),
                     )
                   ],
                 ),
@@ -383,6 +368,7 @@ class _CustomPageViewState extends State<CustomPageView> {
       ),
     );
   }
+
   List<Cast> castList = [
     Cast(
       'Lead Actor',
@@ -483,8 +469,9 @@ class _CustomPageViewState extends State<CustomPageView> {
       'https://cdn.theasc.com/John-Dykstra-Star-Wars-1977.jpg',
     ),
   ];
-
 }
+
+
 
 class Cast {
   String role;
@@ -493,6 +480,151 @@ class Cast {
   String image;
 
   Cast(this.role, this.name, this.description, this.image);
+}
 
 
+class CastPage extends StatelessWidget {
+  List<Cast>castList;
+  bool isCast;
+   CastPage({super.key,required this.castList,required this.isCast});
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildCastPage(context,isCast ? 'Cast' : 'Crew');
+  }
+
+  Widget _buildCastPage(BuildContext context, String title) {
+    return Card(
+      elevation: 10,
+      color: Colors.white.withOpacity(0.1),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(10.dg),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(fontSize: 28.sp, fontWeight: FontWeight.bold),
+                  ),
+                  InkWell(
+                      onTap: () =>    Navigator.push(context,
+                          CupertinoPageRoute(builder: (context) => CastPage(
+                            castList: castList,
+                            isCast: true,
+                          ))),
+                      child: Text("View All",style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.blue,fontWeight: FontWeight.bold),))
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              ListView.builder(
+                itemCount: castList.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return title == 'Cast'
+                      ? _buildCastCards(
+                    context: context,
+                      role: castList[index].role,
+                      image: castList[index].image,
+                      description: castList[index].description,
+                      name: castList[index].name)
+                      : _buildCastCards(
+                    context:context ,
+                      role: castList[index].role,
+                      image: castList[index].image,
+                      description: castList[index].description,
+                      name: castList[index].name);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCastCards({
+    required String role,
+    required String name,
+    required String description,
+    required String image,
+    required BuildContext context
+  }) {
+    return Container(
+      margin: EdgeInsets.all(8.dg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            role,
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.sp,
+                color: Colors.grey),
+          ),
+          SizedBox(
+            height: 12.h,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 80.h,
+                width: 80.w,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.r),
+                  child: CachedNetworkImage(
+                      placeholder: (context, url) => const Loadingscreen(),
+                      fit: BoxFit.cover,
+                      imageUrl: image),
+                ),
+              ),
+              SizedBox(
+                width: 8.w,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(
+                          fontWeight: FontWeight.bold, fontSize: 16.sp),
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    Text(
+                      description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium
+                          ?.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 12.sp,
+                          color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
