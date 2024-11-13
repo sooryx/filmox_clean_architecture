@@ -1,10 +1,8 @@
-import 'dart:io';
 
 import 'package:filmox_clean_architecture/core/network/api_service.dart';
 import 'package:filmox_clean_architecture/data/repositories/contest/contest_main/contest_main_repo.dart';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:myself/myself.dart';
 
 class RcMainProvider with ChangeNotifier {
   ContestMainRepo _contestRepo = ContestMainRepo();

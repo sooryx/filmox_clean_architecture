@@ -29,6 +29,8 @@ class DTDashboardProvider with ChangeNotifier {
           digitalTheaterID: digitalTheaterID);
     } catch (e) {
       _status = DefaultPageStatus.failed;
+      notifyListeners();
+
       rethrow;
     } finally {
       _status = DefaultPageStatus.success;

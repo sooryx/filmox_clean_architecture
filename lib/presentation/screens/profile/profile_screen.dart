@@ -1,9 +1,13 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:filmox_clean_architecture/core/network/api_service.dart';
+import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/domain/entity/profile/profile_entity.dart';
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_feed_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/profile/profile_provider.dart';
+import 'package:filmox_clean_architecture/widgets/loading_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -12,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-import 'dtDashboard/dt_dashboard.dart';
+import 'dtDashboard/dashboardmainscreen/dt_dashboard.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -37,6 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   void initState() {
     super.initState();
+    Provider.of<ProfileProvider>(context, listen: false).fetchProfileData();
+
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(_handleTabChange);
 
@@ -61,25 +67,29 @@ class _ProfileScreenState extends State<ProfileScreen>
       builder: (context, provider, child) {
         final profileData = provider.profileEntity;
         return Scaffold(
-          body: NestedScrollView(
-            floatHeaderSlivers: true,
-            controller: _scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              List<String> coverImages = provider.profileEntity?.coverPictures ?? [];
-              return [
-                appbar(
-                    profileData.name,
-                    profileData.profession,
-                    profileData.industry,
-                    profileData.profilePhoto,
-                    coverImages)
-              ];
-            },
-            body: buildContents(
-                image: profileData?.profilePhoto ?? logo, dt: profileData!.digitalTheater ),
-          ),
+          body: provider.status == DefaultPageStatus.loading
+              ? Loadingscreen()
+              : NestedScrollView(
+                  floatHeaderSlivers: true,
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    List<String> coverImages =
+                        provider.profileEntity?.coverPictures ?? [];
+                    return [
+                      appbar(
+                          profileData.name,
+                          profileData.profession,
+                          profileData.industry,
+                          profileData.profilePhoto,
+                          coverImages)
+                    ];
+                  },
+                  body: buildContents(
+                      image: profileData?.profilePhoto ?? logo,
+                      dt: profileData!.digitalTheater),
+                ),
         );
       },
     );
@@ -91,15 +101,13 @@ class _ProfileScreenState extends State<ProfileScreen>
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-
               image: NetworkImage(
                   'https://as1.ftcdn.net/v2/jpg/06/01/48/24/1000_F_601482476_FX47F1UANQTfYA7eUp9dfBcWGJ1tbAVO.jpg'),
               fit: BoxFit.cover)),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 30,sigmaY: 30),
+        filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
         child: Container(
           color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
-
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
@@ -120,7 +128,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.people,color: Colors.white,),
+                            const Icon(
+                              Icons.people,
+                              color: Colors.white,
+                            ),
                             SizedBox(
                               width: 8.h,
                             ),
@@ -145,7 +156,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(Icons.chat,color: Colors.white,),
+                              const Icon(
+                                Icons.chat,
+                                color: Colors.white,
+                              ),
                               SizedBox(
                                 width: 8.h,
                               ),
@@ -179,7 +193,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                         Text(
                           '28',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 22.sp, color: Colors.white),
+                          style:
+                              TextStyle(fontSize: 22.sp, color: Colors.white),
                         ),
                         Text(
                           'Media',
@@ -248,7 +263,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                 // padding: EdgeInsets.all(8.dg),
                 height: 60.h,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.5),
                   borderRadius: BorderRadius.circular(50.r),
                   // color: Colors.white.withOpacity(.3),
                 ),
@@ -324,16 +341,15 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget buildCoverImage(
-      final String name,
-      final String profession,
-      final String industry,
-      List<String> coverImages,
-      ) {
+    final String name,
+    final String profession,
+    final String industry,
+    List<String> coverImages,
+  ) {
     double progress = (_currentPage + 1) / coverImages.length;
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-
               image: NetworkImage(
                   'https://as1.ftcdn.net/v2/jpg/06/01/48/24/1000_F_601482476_FX47F1UANQTfYA7eUp9dfBcWGJ1tbAVO.jpg'),
               fit: BoxFit.cover)),
@@ -342,7 +358,6 @@ class _ProfileScreenState extends State<ProfileScreen>
           filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
           child: Container(
             color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -373,6 +388,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                           return CachedNetworkImage(
                             imageUrl: coverImages[index],
                             fit: BoxFit.cover,
+                            errorWidget: (context, url, error) {
+                              return Image.asset(AppConstants.filmoxLogo);
+                            },
                           );
                         },
                       ).animate().fadeIn(duration: const Duration(seconds: 2))
@@ -407,7 +425,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                       )
                     ],
                   ),
-                  Text(profession, style: Theme.of(context).textTheme.bodyMedium),
+                  Text(profession,
+                      style: Theme.of(context).textTheme.bodyMedium),
                   Text(
                     industry,
                     style: Theme.of(context).textTheme.bodyMedium,
@@ -468,20 +487,20 @@ class _ProfileScreenState extends State<ProfileScreen>
         ],
       ),
       childrenDelegate: SliverChildBuilderDelegate(childCount: images.length,
-              (context, index) {
-            return Hero(
-              tag: images[index],
-              child: MediaCardWidget(
-                width: width,
-                height: itemHeight,
-                image: images[index],
-                person: '353',
-                title: '@alix',
-                images: images,
-                imageindex: index,
-              ),
-            );
-          }),
+          (context, index) {
+        return Hero(
+          tag: images[index],
+          child: MediaCardWidget(
+            width: width,
+            height: itemHeight,
+            image: images[index],
+            person: '353',
+            title: '@alix',
+            images: images,
+            imageindex: index,
+          ),
+        );
+      }),
     );
   }
 
@@ -489,37 +508,41 @@ class _ProfileScreenState extends State<ProfileScreen>
     return dt.isEmpty
         ? const Center(child: Text("No dt to show "))
         : GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: dt.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 0.8),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => DigitaltheaterDashboardScreen(
-                        digitalTheaterID: dt[index].id.toString(),
-                      )));
-            },
-            child: MovieCard(
-              image: UrlStrings.imageUrl + dt[index].poster,
-              name: dt[index].title,
-              year: dt[index].year.toString(),
-            ),
-          );
-        });
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: dt.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 0.8),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => DtDashboardScreen(
+                            digitalTheaterID: dt[index].id.toString(),
+                          )));
+                },
+                child: Hero(
+                  tag: dt[index].poster,
+
+                  child: MovieCard(
+                    image:dt[index].poster,
+                    name: dt[index].title,
+                    year: dt[index].year.toString(),
+                  ),
+                ),
+              );
+            });
   }
 
   Widget eventsPageview3() {
     List<Map<String, dynamic>> dummyList = [
       {
         'img':
-        'https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/sites/2/2018/06/28153320/BangaloreOpenair1.jpg',
+            'https://imgstaticcontent.lbb.in/lbbnew/wp-content/uploads/sites/2/2018/06/28153320/BangaloreOpenair1.jpg',
         'day': '17',
         'month': 'Dec',
         'text1': 'Rock | English | All age groups | 10hrs',
@@ -534,7 +557,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       },
       {
         'img':
-        'https://img.freepik.com/free-photo/close-up-abstract-yellow-wallpaper_23-2147951276.jpg?w=740&t=st=1705663312~exp=1705663912~hmac=27fbcec50380c10fda6d6acbf5bf417e6048a2c5a235977483faedd4367dd3df',
+            'https://img.freepik.com/free-photo/close-up-abstract-yellow-wallpaper_23-2147951276.jpg?w=740&t=st=1705663312~exp=1705663912~hmac=27fbcec50380c10fda6d6acbf5bf417e6048a2c5a235977483faedd4367dd3df',
         'day': '18',
         'month': 'Dec',
         'text1': 'Pop | Hindi | All age groups | 8hrs',
@@ -549,7 +572,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       },
       {
         'img':
-        'https://c1.wallpaperflare.com/preview/50/186/499/man-male-glasses-neon.jpg',
+            'https://c1.wallpaperflare.com/preview/50/186/499/man-male-glasses-neon.jpg',
         'day': '19',
         'month': 'Dec',
         'text1': 'Electronic | English | 18+ | 12hrs',
@@ -629,16 +652,17 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget appbar(
-      final String name,
-      final String profession,
-      final String industry,
-      final String profilePhoto,
-      List<String> coverimages,
-      ) {
+    final String name,
+    final String profession,
+    final String industry,
+    final String profilePhoto,
+    List<String> coverimages,
+  ) {
     return SliverAppBar(
       toolbarHeight: 100.h,
       leading: const SizedBox.shrink(),
-      expandedHeight: coverHeight,backgroundColor: Colors.transparent,
+      expandedHeight: coverHeight,
+      backgroundColor: Colors.transparent,
       collapsedHeight: 100.h,
       floating: true,
       pinned: true,
@@ -662,10 +686,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             SizedBox(
               height: 12.h,
             ),
-            Text(
-                name,
-                style: Theme.of(context).textTheme.titleLarge
-            ),
+            Text(name, style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         background: buildCoverImage(name, profession, industry, coverimages),
@@ -742,7 +763,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           Text(
                             text1,
                             style:
-                            TextStyle(color: Colors.white, fontSize: 11.sp),
+                                TextStyle(color: Colors.white, fontSize: 11.sp),
                           ),
                           Text(
                             text2,
@@ -926,18 +947,18 @@ class MyListItem extends StatelessWidget {
           color: isSelected ? null : Colors.transparent,
           border: isSelected
               ? Border.all(
-            color: Colors.white.withOpacity(0.2),
-          )
+                  color: Colors.white.withOpacity(0.2),
+                )
               : null,
           gradient: isSelected
               ? LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xFF1CB5E0).withOpacity(0.35),
-              const Color(0xFF1CB5E0).withOpacity(0.15),
-            ],
-          )
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    const Color(0xFF1CB5E0).withOpacity(0.35),
+                    const Color(0xFF1CB5E0).withOpacity(0.15),
+                  ],
+                )
               : null,
           // color: isSelected
           //     ? Color(0xFF1CB5E0).withOpacity(0.2)
@@ -1030,7 +1051,7 @@ class MovieCard extends StatelessWidget {
                 ),
                 child: Container(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                   height: 70.w,
                   width: 200.w,
                   decoration: BoxDecoration(
@@ -1110,8 +1131,8 @@ class CurvedProgressBarPainter extends CustomPainter {
 
   const CurvedProgressBarPainter(
       {required this.value,
-        required this.color,
-        required this.backgroundColor});
+      required this.color,
+      required this.backgroundColor});
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -1,4 +1,5 @@
-import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/add/multiplefileupload/multiple_file_upload_main.dart';
+import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
+import 'package:filmox_clean_architecture/presentation/providers/profile/profile_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/auth/auth_provdier.dart';
 import 'package:filmox_clean_architecture/presentation/providers/contest/rc_feed_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/contest/rc_main_provider.dart';
@@ -45,4 +46,6 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep4Provider()),
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep5Provider()),
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep5Provider()),
+  ChangeNotifierProvider(create: (context) => ProfileProvider()),
+  ChangeNotifierProvider(create: (context) => DTDashboardProvider()),
 ];

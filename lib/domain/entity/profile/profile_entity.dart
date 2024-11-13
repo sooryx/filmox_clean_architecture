@@ -1,3 +1,5 @@
+import 'package:filmox_clean_architecture/core/utils/urls.dart';
+
 class ProfileEntity {
   String name;
   String profilePhoto;
@@ -44,7 +46,7 @@ class DigitalTheatreProfileEntity {
     required this.id,
     required this.uploadType,
     required this.title,
-    required this.poster,
+    required String poster,
     required this.year,
     required this.rating,
     required this.languageId,
@@ -54,5 +56,5 @@ class DigitalTheatreProfileEntity {
     required this.step,
     required this.createdAt,
     required this.updatedAt,
-  });
+  }):this.poster = UrlStrings.imageUrl + poster;
 }

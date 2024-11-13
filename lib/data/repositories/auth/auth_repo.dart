@@ -6,8 +6,7 @@ import 'package:filmox_clean_architecture/domain/entity/userType/user_type_entit
 class AuthRepository {
   final ApiService _apiService = ApiService();
   SharedPreferencesManager sharedPreferencesManager =
-  SharedPreferencesManager();
-
+      SharedPreferencesManager();
 
   Future<UserInfoEntity> signin({
     required String phoneNumber,
@@ -21,29 +20,27 @@ class AuthRepository {
     if (response.containsKey('access_token')) {
       String accessToken = response['access_token'];
       await sharedPreferencesManager.setAccessToken(accessToken);
-
+      await sharedPreferencesManager.setLoggedIn(true);
       var user = response['user'];
       var profile = response['profile'];
 
-      return
-        UserInfoEntity(
-          userName: user['username'],
-          userType: user['type'],
-          userImage: profile['profile_photo'],
-        );
-
+      return UserInfoEntity(
+        userName: user['username'],
+        userType: user['type'],
+        userImage: profile['profile_photo'],
+      );
     } else {
       // Handle the case where the access token is not present
       throw Exception('Failed to sign in');
     }
   }
 
-
   Future<List<UserTypeEntity>> fetchUserTypes() async {
     final response = await _apiService.get('/userTypeScreen');
     final dataModel = UserTypeModel.fromJson(response);
-    return dataModel.data.map((i) =>
-        UserTypeEntity(image: i.media, description: i.description)).toList();
+    return dataModel.data
+        .map((i) => UserTypeEntity(image: i.media, description: i.description))
+        .toList();
   }
 
   Future<void> signup({

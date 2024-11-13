@@ -298,7 +298,7 @@ class _EditbasicdetailsdtState extends State<Editbasicdetailsdt> {
                       ? FileImage(
                           poster!,
                         ) as ImageProvider<Object>
-                      : NetworkImage("${UrlStrings.imageUrl}${posterImage!}"),
+                      : NetworkImage("${posterImage!}"),
                 ),
                 borderRadius: BorderRadius.circular(50.r),
                 border: Border.all(

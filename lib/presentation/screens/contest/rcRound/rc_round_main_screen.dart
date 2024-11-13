@@ -1,10 +1,13 @@
 import 'package:filmox_clean_architecture/presentation/components/contest/rounds/rounds_cards.dart';
 import 'package:filmox_clean_architecture/presentation/components/contest/rounds/rounds_header.dart';
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_main_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
 
 class RcRoundMainScreen extends StatefulWidget {
   const RcRoundMainScreen({super.key});
@@ -34,6 +37,7 @@ class _RcRoundMainScreenState extends State<RcRoundMainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<RcMainProvider>(context,listen: false);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -200,35 +204,36 @@ class _RcRoundMainScreenState extends State<RcRoundMainScreen> {
       "title": "Beethoven's Battle",
       "remainingDays": "5",
       "description":
-          "A symphonic showdown, where classical music meets modern rhythm. Will you survive the clash of eras?",
+      "A symphonic showdown, where classical music meets modern rhythm. Will you survive the clash of eras?",
       "isCompleted": "true"
     },
     {
       "title": "Mozart's Melody",
       "remainingDays": "3",
+
       "description":
-          "A melodic journey through the genius of Mozart. Can you keep up with his intricate compositions?",
+      "A melodic journey through the genius of Mozart. Can you keep up with his intricate compositions?",
       "isCompleted": "true"
     },
     {
       "title": "Jazz Jam",
       "remainingDays": "7",
       "description":
-          "Dive into the smooth sounds of jazz. How well can you improvise with the rhythm of the night?",
+      "Dive into the smooth sounds of jazz. How well can you improvise with the rhythm of the night?",
       "isCompleted": "false"
     },
     {
       "title": "Rock Revolution",
       "remainingDays": "4",
       "description":
-          "The electric energy of rock awaits. Can you handle the thunderous riffs and epic solos?",
+      "The electric energy of rock awaits. Can you handle the thunderous riffs and epic solos?",
       "isCompleted": "false"
     },
     {
       "title": "Pop Pulse",
       "remainingDays": "2",
       "description":
-          "Feel the beat of today’s pop hits. Stay on rhythm and vibe with the latest chart-toppers.",
+      "Feel the beat of today’s pop hits. Stay on rhythm and vibe with the latest chart-toppers.",
       "isCompleted": "true"
     },
   ];

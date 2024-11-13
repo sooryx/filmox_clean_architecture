@@ -44,4 +44,5 @@ class AppConstants {
   // Miscellaneous Images
   static const String scareCrow = '${basePath}scarecrow.png';
   static const String joker = '${basePath}joker.png';
+  static const String robo = '${basePath}joker.png';
 }

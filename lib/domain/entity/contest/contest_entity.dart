@@ -15,6 +15,7 @@ class ContestEntity {
   String megaAuditionDesc;
   int? isPublished;
   List<BannerEntity>? banners;
+  List<RoundsEntity>? rounds;
   List<GuestEntity>? guests;
   List<UserMediaEntity>? userMedia;
 
@@ -32,6 +33,7 @@ class ContestEntity {
     required this.megaAuditionDesc,
     this.isPublished,
     this.banners,
+    this.rounds,
     this.guests,
     this.userMedia,
   }) : this.poster = '${UrlStrings.imageUrl}$poster'; // Prepend base URL to poster
@@ -82,3 +84,36 @@ class UserMediaEntity {
 }
 
 
+class RoundsEntity {
+  int roundNumber;
+  String roundType;
+  String title;
+  String poster;
+  DateTime startDate;
+  DateTime voteDate;
+  DateTime endDate;
+  String roundDescription;
+  String megaRoundDescription;
+  dynamic previousRoundId;
+  int isFinal;
+  int isWildcard;
+  int isGuest;
+  int isFinished;
+
+  RoundsEntity({
+    required this.roundNumber,
+    required this.roundType,
+    required this.title,
+    required String poster,
+    required this.startDate,
+    required this.voteDate,
+    required this.endDate,
+    required this.roundDescription,
+    required this.megaRoundDescription,
+    required this.previousRoundId,
+    required this.isFinal,
+    required this.isWildcard,
+    required this.isGuest,
+    required this.isFinished,
+  }) :this.poster = UrlStrings.imageUrl + poster;
+}

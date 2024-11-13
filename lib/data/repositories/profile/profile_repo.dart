@@ -12,7 +12,7 @@ class ProfileRepo {
 
   Future<ProfileEntity> fetchProfileData() async {
     final response = await _apiService.post(getProfileData, {});
-    UserProfileModel userProfileModel = response;
+    UserProfileModel userProfileModel = UserProfileModel.fromJson(response);
     return ProfileEntity(
         name: userProfileModel.data.name,
         profilePhoto: userProfileModel.data.profilePhoto ?? AppConstants.filmoxLogo,

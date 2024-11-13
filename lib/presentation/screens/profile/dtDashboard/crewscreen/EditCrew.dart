@@ -2,31 +2,30 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
-import 'package:filmox_clean_architecture/presentation/screens/profile/dtDashboard/DashBoardHelper.dart';
 import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
-import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
+import 'package:filmox_clean_architecture/presentation/screens/profile/dtDashboard/dashboardmainscreen/dt_dashboard_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import 'AddCast.dart';
-import 'EditIndividualCast.dart';
+import 'AddCrew.dart';
+import 'EditIndividualCrew.dart';
 
-class EditCast extends StatefulWidget {
-  final String dtId;
+class Editcrew extends StatefulWidget {
+  final int? dtId;
 
-  const EditCast({super.key, required this.dtId});
+  const Editcrew({super.key, this.dtId});
 
   @override
-  State<EditCast> createState() => _EditCastState();
+  State<Editcrew> createState() => _EditcrewState();
 }
 
-class _EditCastState extends State<EditCast> {
-  final List<TextEditingController> _nameControllersCast = [];
-  final List<TextEditingController> _roleControllersCast = [];
-  final List<File?> _imageFilesCast = [];
-  final List<bool> _isNewCast = [];
+class _EditcrewState extends State<Editcrew> {
+  final List<TextEditingController> _nameControllerscrew = [];
+  final List<TextEditingController> _roleControllerscrew = [];
+  final List<File?> _imageFilescrew = [];
+  final List<bool> _isNewcrew = [];
 
   @override
   void initState() {
@@ -35,18 +34,18 @@ class _EditCastState extends State<EditCast> {
   }
 
   void _initializeControllersAndFiles() {
-    _nameControllersCast.clear();
-    _roleControllersCast.clear();
-    _imageFilesCast.clear();
-    _isNewCast.clear();
+    _nameControllerscrew.clear();
+    _roleControllerscrew.clear();
+    _imageFilescrew.clear();
+    _isNewcrew.clear();
     final dashboardProvider =
         Provider.of<DTDashboardProvider>(context, listen: false);
-    final cast = dashboardProvider.digitalTheaterDashBoardEntity?.cast;
-    cast?.forEach((castMember) {
-      _nameControllersCast.add(TextEditingController(text: castMember.name));
-      _roleControllersCast.add(TextEditingController(text: castMember.role));
-      _imageFilesCast.add(null);
-      _isNewCast.add(false); // Existing cast members are not new
+    final crew = dashboardProvider.digitalTheaterDashBoardEntity?.cast;
+    crew?.forEach((crewMember) {
+      _nameControllerscrew.add(TextEditingController(text: crewMember.name));
+      _roleControllerscrew.add(TextEditingController(text: crewMember.role));
+      _imageFilescrew.add(null);
+      _isNewcrew.add(false); // Existing crew members are not new
     });
   }
 
@@ -56,22 +55,29 @@ class _EditCastState extends State<EditCast> {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_new_rounded,
-                color: Theme.of(context).colorScheme.surface),
-            onPressed: () async {
+                color: Theme.of(context).colorScheme.primary),
+            onPressed: () {
               Navigator.of(context).pop();
             },
           ),
-          title: const Text('Cast Information'),
+          title: const Text('Crew Information'),
+          actions: [
+            const Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+            SizedBox(width: 10.w),
+          ],
         ),
         body: Consumer<DTDashboardProvider>(
-          builder: (context, digitalProvider, state) {
-            final cast = digitalProvider.digitalTheaterDashBoardEntity?.cast;
+          builder: (context, dtProvider, state) {
+            final crew = dtProvider.digitalTheaterDashBoardEntity?.crew;
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  cast!.isNotEmpty
+                  crew!.isNotEmpty
                       ? ListView.builder(
-                          itemCount: cast.length,
+                          itemCount: crew.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -90,44 +96,28 @@ class _EditCastState extends State<EditCast> {
                                   color: Colors.white,
                                 ),
                               ),
-                              onDismissed: (direction) async {
-                                showLoadingDialog(
+                              onDismissed: (direction) {
+                                DashBoardHelper().deleteCrew(
                                     context: context,
-                                    message: "Deleting cast ...",
-                                    lottie: null);
-
-                                try {
-                                  final dashboardProvider = Provider.of<
-                                          DTDashboardProvider>(
-                                      context,
-                                      listen: false);
-                                  await dashboardProvider.deleteCastData(
-                                    context: context,
-                                    id: widget.dtId ,
-                                    name: cast[index].name,
-                                    role: cast[index].name,
-                                  );
-                                } catch (e) {
-                                  customErrorToast(
-                                      context, "Error:${e.toString()}");
-                                } finally {
-                                  Navigator.pop(context);
-                                }
+                                    digiID: dtProvider
+                                        .digitalTheaterDashBoardEntity?.id.toString() ?? '0',
+                                    crewname: crew[index].name,
+                                    role: crew[index].role);
                               },
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
                                       context,
                                       PageTransition(
-                                          child: EditIndividualCast(
+                                          child: EditIndividualCrew(
                                             nameController:
                                                 TextEditingController(
-                                                    text: cast[index].name),
+                                                    text: crew[index].name),
                                             roleController:
                                                 TextEditingController(
-                                                    text: cast[index].role),
-                                            imgFile: cast[index].image,
-                                            id: cast[index].id ?? 0,
+                                                    text: crew[index].role),
+                                            imgFile: crew[index].image,
+                                            id: crew[index].id ?? 0,
                                           ),
                                           type:
                                               PageTransitionType.rightToLeft));
@@ -165,7 +155,7 @@ class _EditCastState extends State<EditCast> {
                                                   value: downloadProgress
                                                       .progress),
                                           imageUrl:
-                                              '${UrlStrings.imageUrl}${cast[index].image}',
+                                              '${UrlStrings.imageUrl}${crew[index].image}',
                                           fit: BoxFit.cover,
                                           height: 60.h,
                                           width: 60.w,
@@ -182,13 +172,13 @@ class _EditCastState extends State<EditCast> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            cast[index].name,
+                                            crew[index].name,
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 18.sp),
                                           ),
                                           Text(
-                                            cast[index].role,
+                                            crew[index].role,
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14.sp),
@@ -197,11 +187,13 @@ class _EditCastState extends State<EditCast> {
                                       )),
                                       InkWell(
                                         onTap: () {
-                                          DashBoardHelper().deleteCast(
+                                          DashBoardHelper().deleteCrew(
                                               context: context,
-                                              digiID: widget.dtId,
-                                              castName: cast[index].name,
-                                              role: cast[index].role);
+                                              digiID: dtProvider
+                                                  .digitalTheaterDashBoardEntity
+                                                  ?.id.toString() ?? '0',
+                                              crewname: crew[index].name,
+                                              role: crew[index].role);
                                         },
                                         child: Container(
                                           padding: EdgeInsets.all(5.dg),
@@ -224,14 +216,14 @@ class _EditCastState extends State<EditCast> {
                           },
                         )
                       : SizedBox(
-                          height: cast.isNotEmpty ? 20.h : 350.h,
+                          height: crew.isNotEmpty ? 20.h : 350.h,
                         ),
-                  cast.isEmpty
+                  crew.isEmpty
                       ? const Text(
                           textAlign: TextAlign.center,
                           "No data available, Tap the button below to add new crew members")
                       : const SizedBox.shrink(),
-                  cast.isEmpty
+                  crew.isEmpty
                       ? SizedBox(
                           height: 20.h,
                         )
@@ -244,8 +236,8 @@ class _EditCastState extends State<EditCast> {
                       Navigator.push(
                           context,
                           PageTransition(
-                              child: AddCast(
-                                dtID: widget.dtId ,
+                              child: AddCrew(
+                                dtID: widget.dtId ?? 0,
                               ),
                               type: PageTransitionType.rightToLeft));
                     },
@@ -262,7 +254,7 @@ class _EditCastState extends State<EditCast> {
                             SizedBox(
                               width: 10.w,
                             ),
-                            const Expanded(child: Text("Add Cast"))
+                            const Expanded(child: Text("Add crew"))
                           ],
                         ),
                       ),

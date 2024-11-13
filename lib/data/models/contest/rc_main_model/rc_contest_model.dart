@@ -98,6 +98,7 @@ class Contest {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? is_published;
+  List<Round>? rounds;
   List<Banner>? banners;
   List<Guest>? guests;
   List<UserMedia>? userMedia;
@@ -120,6 +121,7 @@ class Contest {
     this.guests,
     this.userMedia,
     this.is_published,
+    this.rounds,
   });
 
   factory Contest.fromJson(Map<String, dynamic> json) => Contest(
@@ -135,6 +137,7 @@ class Contest {
     megaAuditionDesc: json["mega_audition_desc"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    rounds: json["rounds"] == null ? [] : List<Round>.from(json["rounds"].map((x) => Round.fromJson(x))),
     banners: json["banners"] == null ? [] : List<Banner>.from(json["banners"].map((x) => Banner.fromJson(x))),
     guests: json["guests"] == null ? [] : List<Guest>.from(json["guests"].map((x) => Guest.fromJson(x))),
     userMedia: List<UserMedia>.from(json["user_media"].map((x) => UserMedia.fromJson(x))),
@@ -155,6 +158,7 @@ class Contest {
     "mega_audition_desc": megaAuditionDesc,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "rounds": rounds?.map((x) => x.toJson()).toList(),
     "banners": banners?.map((x) => x.toJson()).toList(),
     "guests": guests?.map((x) => x.toJson()).toList(),
     "user_media": userMedia?.map((x) => x.toJson()).toList(),
@@ -220,6 +224,7 @@ class Guest {
     "image": image,
   };
 }
+
 class UserMedia {
   int id;
   String media;
@@ -249,5 +254,73 @@ class UserMedia {
     "media_type": mediaType,
     "thumbnail": thumbnail,
     "status": status,
+  };
+}
+
+class Round {
+  int roundNumber;
+  String roundType;
+  String title;
+  String poster;
+  DateTime startDate;
+  DateTime voteDate;
+  DateTime endDate;
+  String roundDescription;
+  String megaRoundDescription;
+  dynamic previousRoundId;
+  int isFinal;
+  int isWildcard;
+  int isGuest;
+  int isFinished;
+
+  Round({
+    required this.roundNumber,
+    required this.roundType,
+    required this.title,
+    required this.poster,
+    required this.startDate,
+    required this.voteDate,
+    required this.endDate,
+    required this.roundDescription,
+    required this.megaRoundDescription,
+    required this.previousRoundId,
+    required this.isFinal,
+    required this.isWildcard,
+    required this.isGuest,
+    required this.isFinished,
+  });
+
+  factory Round.fromJson(Map<String, dynamic> json) => Round(
+    roundNumber: json["round_number"],
+    roundType: json["round_type"],
+    title: json["title"],
+    poster: json["poster"],
+    startDate: DateTime.parse(json["start_date"]),
+    voteDate: DateTime.parse(json["vote_date"]),
+    endDate: DateTime.parse(json["end_date"]),
+    roundDescription: json["round_description"],
+    megaRoundDescription: json["mega_round_description"],
+    previousRoundId: json["previous_round_id"],
+    isFinal: json["is_final"],
+    isWildcard: json["is_wildcard"],
+    isGuest: json["is_guest"],
+    isFinished: json["is_finished"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "round_number": roundNumber,
+    "round_type": roundType,
+    "title": title,
+    "poster": poster,
+    "start_date": startDate.toIso8601String(),
+    "vote_date": voteDate.toIso8601String(),
+    "end_date": endDate.toIso8601String(),
+    "round_description": roundDescription,
+    "mega_round_description": megaRoundDescription,
+    "previous_round_id": previousRoundId,
+    "is_final": isFinal,
+    "is_wildcard": isWildcard,
+    "is_guest": isGuest,
+    "is_finished": isFinished,
   };
 }

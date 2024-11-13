@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'MultipleFileUpload/AddEpisode.dart';
-import 'MultipleFileUpload/EditEpisodePage.dart';
-import 'MultipleFileUpload/EditSeasonPage.dart';
+import '../dtDashboardMFUpload/AddEpisode.dart';
+import '../dtDashboardMFUpload/EditEpisodePage.dart';
+import '../dtDashboardMFUpload/EditSeasonPage.dart';
+
 
 class DashBoardHelper {
   ///Season Delete
@@ -410,9 +411,9 @@ class DashBoardHelper {
               case 'Option 1':
                   Navigator.push(context,
                               CupertinoPageRoute(builder: (context) => AddEpisodePage(
-                                seasonTitle: dtProvider.digitalTheaterDashBoardEntity?.seasons[index].name ??
+                                seasonTitle: dtProvider.digitalTheaterDashBoardEntity?.seasons?[index].name ??
                                     "NA",
-                                seasonID: dtProvider.digitalTheaterDashBoardEntity?.seasons[index].id
+                                seasonID: dtProvider.digitalTheaterDashBoardEntity?.seasons?[index].id
                                     .toString() ??
                                     "NA",
                                 DigitalTheaterId:dtProvider.digitalTheaterDashBoardEntity?.id.toString() ?? '0',
@@ -424,7 +425,7 @@ class DashBoardHelper {
                     CupertinoPageRoute(
                         builder: (context) => EditSeasonPage(
                               season: dtProvider.digitalTheaterDashBoardEntity
-                                  ?.seasons[index],
+                                  ?.seasons?[index],
                               dtID: dtProvider
                                   .digitalTheaterDashBoardEntity?.id,
                             )));
@@ -434,7 +435,7 @@ class DashBoardHelper {
                     context: context,
                     digiID: dtProvider.digitalTheaterDashBoardEntity?.id.toString(),
                     seasonID: dtProvider.digitalTheaterDashBoardEntity
-                        ?.seasons[index].id ??0 );
+                        ?.seasons?[index].id ??0 );
                 break;
             }
           },

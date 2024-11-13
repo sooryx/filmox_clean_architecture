@@ -18,40 +18,55 @@ class ContestMainRepo {
       dataModel.data!.liveCategories
           ?.expand(
               (category) => category.contests!.map((contest) => ContestEntity(
-            categoryName: category.title ?? '',
-            contestID: contest.id ?? 0,
-            mediaType: contest.mediaType ?? 1,
-            isPublished: contest.is_published,
-            name: contest.title ?? '',
-            poster: contest.poster ?? '',
-            banners: contest.banners!
-                .map((banner) => BannerEntity(
-                id: banner.id,
-                status: banner.status,
-                banner: banner.banner ?? '',
-                bpId: banner.bpId,
-                type: banner.type))
-                .toList(),
-            userMedia: contest.userMedia!
-                .map((usermedia) => UserMediaEntity(
-                id: usermedia.id,
-                media: usermedia.media,
-                mediaType: usermedia.mediaType,
-                thumbnail: usermedia.thumbnail,
-                status: usermedia.status))
-                .toList(),
-            guests: contest.guests!
-                .map((guest) => GuestEntity(
-                id: guest.id,
-                image: guest.image ?? '',
-                name: guest.name))
-                .toList(),
-            startDate: contest.startDate ?? DateTime.now(),
-            voteDate: contest.voteDate ?? DateTime.now(),
-            endDate: contest.endDate ?? DateTime.now(),
-            contestDesc: contest.contestDesc ?? '',
-            megaAuditionDesc: contest.megaAuditionDesc ?? '',
-          )))
+                    categoryName: category.title ?? '',
+                    contestID: contest.id ?? 0,
+                    mediaType: contest.mediaType ?? 1,
+                    isPublished: contest.is_published,
+                    name: contest.title ?? '',
+                    poster: contest.poster ?? '',
+                    rounds: contest.rounds?.map((rounds) => RoundsEntity(
+                        roundNumber: rounds.roundNumber,
+                        roundType: rounds.roundType,
+                        title: rounds.title,
+                        poster: rounds.poster,
+                        startDate: rounds.startDate,
+                        voteDate: rounds.voteDate,
+                        endDate: rounds.endDate,
+                        roundDescription: rounds.roundDescription,
+                        megaRoundDescription: rounds.megaRoundDescription,
+                        previousRoundId: rounds.previousRoundId,
+                        isFinal: rounds.isFinal,
+                        isWildcard: rounds.isWildcard,
+                        isGuest: rounds.isGuest,
+                        isFinished: rounds.isFinished)).toList(),
+                    banners: contest.banners!
+                        .map((banner) => BannerEntity(
+                            id: banner.id,
+                            status: banner.status,
+                            banner: banner.banner ?? '',
+                            bpId: banner.bpId,
+                            type: banner.type))
+                        .toList(),
+                    userMedia: contest.userMedia!
+                        .map((usermedia) => UserMediaEntity(
+                            id: usermedia.id,
+                            media: usermedia.media,
+                            mediaType: usermedia.mediaType,
+                            thumbnail: usermedia.thumbnail,
+                            status: usermedia.status))
+                        .toList(),
+                    guests: contest.guests!
+                        .map((guest) => GuestEntity(
+                            id: guest.id,
+                            image: guest.image ?? '',
+                            name: guest.name))
+                        .toList(),
+                    startDate: contest.startDate ?? DateTime.now(),
+                    voteDate: contest.voteDate ?? DateTime.now(),
+                    endDate: contest.endDate ?? DateTime.now(),
+                    contestDesc: contest.contestDesc ?? '',
+                    megaAuditionDesc: contest.megaAuditionDesc ?? '',
+                  )))
           .toList(),
     );
   }
@@ -61,40 +76,40 @@ class ContestMainRepo {
       dataModel.data!.upcomingCategories
           ?.expand(
               (category) => category.contests!.map((contest) => ContestEntity(
-            categoryName: category.title ?? '',
-            mediaType: contest.mediaType ?? 1,
-            contestID: contest.id ?? 0,
-            isPublished: contest.is_published,
-            name: contest.title ?? '',
-            poster: contest.poster ?? '',
-            banners: contest.banners!
-                .map((banner) => BannerEntity(
-                id: banner.id,
-                status: banner.status,
-                banner: banner.banner ?? '',
-                bpId: banner.bpId,
-                type: banner.type))
-                .toList(),
-            userMedia: contest.userMedia!
-                .map((usermedia) => UserMediaEntity(
-                id: usermedia.id,
-                media: usermedia.media,
-                mediaType: usermedia.mediaType,
-                thumbnail: usermedia.thumbnail,
-                status: usermedia.status))
-                .toList(),
-            guests: contest.guests!
-                .map((guest) => GuestEntity(
-                id: guest.id,
-                image: guest.image ?? '',
-                name: guest.name))
-                .toList(),
-            startDate: contest.startDate ?? DateTime.now(),
-            voteDate: contest.voteDate ?? DateTime.now(),
-            endDate: contest.endDate ?? DateTime.now(),
-            contestDesc: contest.contestDesc ?? '',
-            megaAuditionDesc: contest.megaAuditionDesc ?? '',
-          )))
+                    categoryName: category.title ?? '',
+                    mediaType: contest.mediaType ?? 1,
+                    contestID: contest.id ?? 0,
+                    isPublished: contest.is_published,
+                    name: contest.title ?? '',
+                    poster: contest.poster ?? '',
+                    banners: contest.banners!
+                        .map((banner) => BannerEntity(
+                            id: banner.id,
+                            status: banner.status,
+                            banner: banner.banner ?? '',
+                            bpId: banner.bpId,
+                            type: banner.type))
+                        .toList(),
+                    userMedia: contest.userMedia!
+                        .map((usermedia) => UserMediaEntity(
+                            id: usermedia.id,
+                            media: usermedia.media,
+                            mediaType: usermedia.mediaType,
+                            thumbnail: usermedia.thumbnail,
+                            status: usermedia.status))
+                        .toList(),
+                    guests: contest.guests!
+                        .map((guest) => GuestEntity(
+                            id: guest.id,
+                            image: guest.image ?? '',
+                            name: guest.name))
+                        .toList(),
+                    startDate: contest.startDate ?? DateTime.now(),
+                    voteDate: contest.voteDate ?? DateTime.now(),
+                    endDate: contest.endDate ?? DateTime.now(),
+                    contestDesc: contest.contestDesc ?? '',
+                    megaAuditionDesc: contest.megaAuditionDesc ?? '',
+                  )))
           .toList(),
     );
   }
@@ -104,40 +119,40 @@ class ContestMainRepo {
       dataModel.data!.finishedCategories
           ?.expand(
               (category) => category.contests!.map((contest) => ContestEntity(
-            contestID: contest.id ?? 0,
-            mediaType: contest.mediaType ?? 1,
-            isPublished: contest.is_published,
-            banners: contest.banners!
-                .map((banner) => BannerEntity(
-                id: banner.id,
-                status: banner.status,
-                banner: banner.banner ?? '',
-                bpId: banner.bpId,
-                type: banner.type))
-                .toList(),
-            userMedia: contest.userMedia!
-                .map((usermedia) => UserMediaEntity(
-                id: usermedia.id,
-                media: usermedia.media,
-                mediaType: usermedia.mediaType,
-                thumbnail: usermedia.thumbnail,
-                status: usermedia.status))
-                .toList(),
-            guests: contest.guests!
-                .map((guest) => GuestEntity(
-                id: guest.id,
-                image: guest.image ?? '',
-                name: guest.name))
-                .toList(),
-            categoryName: category.title ?? '',
-            name: contest.title ?? '',
-            poster: contest.poster ?? '',
-            startDate: contest.startDate ?? DateTime.now(),
-            voteDate: contest.voteDate ?? DateTime.now(),
-            endDate: contest.endDate ?? DateTime.now(),
-            contestDesc: contest.contestDesc ?? '',
-            megaAuditionDesc: contest.megaAuditionDesc ?? '',
-          )))
+                    contestID: contest.id ?? 0,
+                    mediaType: contest.mediaType ?? 1,
+                    isPublished: contest.is_published,
+                    banners: contest.banners!
+                        .map((banner) => BannerEntity(
+                            id: banner.id,
+                            status: banner.status,
+                            banner: banner.banner ?? '',
+                            bpId: banner.bpId,
+                            type: banner.type))
+                        .toList(),
+                    userMedia: contest.userMedia!
+                        .map((usermedia) => UserMediaEntity(
+                            id: usermedia.id,
+                            media: usermedia.media,
+                            mediaType: usermedia.mediaType,
+                            thumbnail: usermedia.thumbnail,
+                            status: usermedia.status))
+                        .toList(),
+                    guests: contest.guests!
+                        .map((guest) => GuestEntity(
+                            id: guest.id,
+                            image: guest.image ?? '',
+                            name: guest.name))
+                        .toList(),
+                    categoryName: category.title ?? '',
+                    name: contest.title ?? '',
+                    poster: contest.poster ?? '',
+                    startDate: contest.startDate ?? DateTime.now(),
+                    voteDate: contest.voteDate ?? DateTime.now(),
+                    endDate: contest.endDate ?? DateTime.now(),
+                    contestDesc: contest.contestDesc ?? '',
+                    megaAuditionDesc: contest.megaAuditionDesc ?? '',
+                  )))
           .toList(),
     );
   }

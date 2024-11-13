@@ -1,4 +1,6 @@
 
+import 'package:filmox_clean_architecture/core/utils/urls.dart';
+
 class DtDashboardEntity {
   int id;
   int uploadType;
@@ -28,14 +30,14 @@ class DtDashboardEntity {
   DateTime updatedAt;
   List<DashboardCastEntity>? cast;
   List<DashboardCastEntity>? crew;
-  List<DashboardSeasonEntity> seasons;
+  List<DashboardSeasonEntity>? seasons;
 
   DtDashboardEntity({
     required this.id,
     required this.uploadType,
     required this.categoryId,
     required this.title,
-    required this.poster,
+    required String poster,
     required this.year,
     required this.certificate,
     required this.rating,
@@ -59,8 +61,8 @@ class DtDashboardEntity {
     required this.updatedAt,
     this.cast,
     this.crew,
-    required this.seasons,
-  });
+     this.seasons,
+  }): this.poster = '${UrlStrings.imageUrl}$poster';
 
 
 }

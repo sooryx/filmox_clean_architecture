@@ -23,6 +23,7 @@ class ProfileProvider with ChangeNotifier {
       rethrow;
     } finally {
       _status = DefaultPageStatus.success;
+      notifyListeners();
     }
   }
 }

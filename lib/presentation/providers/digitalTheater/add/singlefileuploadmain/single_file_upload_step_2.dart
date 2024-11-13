@@ -34,6 +34,7 @@ class Step2SFUploadProvider with ChangeNotifier {
 
     try {
       // Ensure either file or URL is available, and handle accordingly
+      // ignore: unnecessary_null_comparison
       bool isFileAvailable = _posterFile != null;
       bool isTrailerAvailable = _pickedFile != null || trailerLink.text.isNotEmpty;
 

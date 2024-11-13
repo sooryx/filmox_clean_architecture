@@ -1,15 +1,14 @@
-import 'package:filmox_clean_architecture/presentation/components/contest/rounds/rounds_cards.dart';
 import 'package:filmox_clean_architecture/presentation/screens/contest/rcRound/rc_round_info_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class RoundsHeaderPageView extends StatefulWidget {
   final String image;
   final ScrollController scrollController;
 
-  RoundsHeaderPageView(
+  const RoundsHeaderPageView(
       {super.key, required this.image, required this.scrollController});
 
   @override
@@ -18,7 +17,7 @@ class RoundsHeaderPageView extends StatefulWidget {
 
 class _RoundsHeaderPageViewState extends State<RoundsHeaderPageView> {
   late PageController _pageController;
-  ValueNotifier<double> _currentPageNotifier = ValueNotifier<double>(0);
+  final ValueNotifier<double> _currentPageNotifier = ValueNotifier<double>(0);
 
   @override
   void initState() {
@@ -117,12 +116,12 @@ class _RoundsHeaderPageViewState extends State<RoundsHeaderPageView> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  Colors.black54.withOpacity(0.6),
-                  Colors.black54.withOpacity(0.5),
-                  Colors.black54.withOpacity(0.4),
-                  Colors.black54.withOpacity(0.3),
-                  Colors.black54.withOpacity(0.2),
-                ])),
+                      Colors.black54.withOpacity(0.6),
+                      Colors.black54.withOpacity(0.5),
+                      Colors.black54.withOpacity(0.4),
+                      Colors.black54.withOpacity(0.3),
+                      Colors.black54.withOpacity(0.2),
+                    ])),
             child: Column(
               children: [
                 Text('Unlock the Rhythm of \nMusic!',
@@ -134,11 +133,41 @@ class _RoundsHeaderPageViewState extends State<RoundsHeaderPageView> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => RcRoundInfoScreen()));
+                              builder: (context) => RoundInfoScreen(
+                                round: Round(
+                                    title: "Jazz Jam",
+                                    description: "Dive into the smooth sounds of jazz. How well can you improvise with the rhythm of the night?",
+                                    date: "13th of Nov ",
+                                    status:RoundStatus.active ,
+                                    otherRounds:[
+                                      Round(
+                                        title: "Beethoven's Battle",
+                                        description:
+                                        "A symphonic showdown, where classical music meets modern rhythm. Will you survive the clash of eras?",
+                                        date: "5 days ago",
+                                        status: RoundStatus.finished,
+                                        otherRounds: [],
+                                      ),
+
+                                      Round(
+                                        title: "Rock Revolution",
+                                        description:
+                                        "The electric energy of rock awaits. Can you handle the thunderous riffs and epic solos?",
+                                        date: "4 days ago",
+                                        status: RoundStatus.finished,
+                                      ),
+                                      Round(
+                                        title: "Pop Pulse",
+                                        description:
+                                        "Feel the beat of today’s pop hits. Stay on rhythm and vibe with the latest chart-toppers.",
+                                        date: "2 days to go",
+                                        status: RoundStatus.upcoming,
+                                      ),
+                                    ] ),
+                              )));
                     },
                     child: Hero(
                       tag: 'round',
-
                       child: Row(
                         children: [
                           Container(
@@ -155,7 +184,13 @@ class _RoundsHeaderPageViewState extends State<RoundsHeaderPageView> {
                           SizedBox(
                             width: 10.w,
                           ),
-                           Text("Round #3 is Active Now  ",style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.sp),),
+                          Text(
+                            "Round #3 is Active Now  ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(fontSize: 14.sp),
+                          ),
                           SizedBox(
                             width: 5.w,
                           ),

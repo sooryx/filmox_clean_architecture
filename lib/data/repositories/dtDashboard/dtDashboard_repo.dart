@@ -13,52 +13,72 @@ class DtdashboardRepo {
       {required String digitalTheaterID}) async {
     final response =
         await _apiService.post(fetchDTDetails, {'dt_id': digitalTheaterID});
-    IndividualDTModel individualDTModel = response;
+    IndividualDTModel individualDTModel = IndividualDTModel.fromJson(response);
+
     return DtDashboardEntity(
-        id: individualDTModel.data.id,
-        uploadType: individualDTModel.data.uploadType,
-        categoryId: individualDTModel.data.categoryId,
-        title: individualDTModel.data.title,
-        poster: individualDTModel.data.poster,
-        year: individualDTModel.data.categoryId,
-        certificate: individualDTModel.data.certificate,
-        rating: individualDTModel.data.rating,
-        hours: individualDTModel.data.hours,
-        minutes: individualDTModel.data.minutes,
-        genreId: individualDTModel.data.genreId,
-        languageId: individualDTModel.data.languageId,
-        storyLine: individualDTModel.data.storyLine,
-        status: individualDTModel.data.status,
-        userType: individualDTModel.data.userType,
-        userId: individualDTModel.data.userId,
-        step: individualDTModel.data.step,
-        createdAt: individualDTModel.data.createdAt,
-        updatedAt: individualDTModel.data.updatedAt,
-        seasons: individualDTModel.data.seasons
-            .map((season) => DashboardSeasonEntity(
-                id: season.id,
-                dtId: season.dtId,
-                name: season.name,
-                trailerType: season.trailerType,
-                year: season.year,
-                status: season.status,
-                userType: season.userType,
-                isPublish: season.isPublish,
-                trailerMediaFile: season.trailerMediaFile,
-                trailerMediaLink: season.trailerMediaLink,
-                episodes: season.episodes
-                    ?.map((episode) => DashboardEpisodeEntity(
-                        name: episode.name,
-                        media: episode.media,
-                        type: episode.type,
-                        status: episode.status,
-                        description: episode.description,
-                        dtId: episode.dtId,
-                        id: episode.id,
-                        seasonId: episode.seasonId,
-                        link: episode.link))
-                    .toList()))
-            .toList());
+      id: individualDTModel.data.id,
+      uploadType: individualDTModel.data.uploadType,
+      categoryId: individualDTModel.data.categoryId,
+      title: individualDTModel.data.title,
+      poster: individualDTModel.data.poster,
+      year: individualDTModel.data.year,
+      // Fixed to use year instead of categoryId
+      certificate: individualDTModel.data.certificate,
+      rating: individualDTModel.data.rating,
+      hours: individualDTModel.data.hours,
+      minutes: individualDTModel.data.minutes,
+      genreId: individualDTModel.data.genreId,
+      languageId: individualDTModel.data.languageId,
+      storyLine: individualDTModel.data.storyLine,
+      status: individualDTModel.data.status,
+      userType: individualDTModel.data.userType,
+      userId: individualDTModel.data.userId,
+      step: individualDTModel.data.step,
+      createdAt: individualDTModel.data.createdAt,
+      updatedAt: individualDTModel.data.updatedAt,
+      cast: individualDTModel.data.cast?.map(
+          (cast) => DashboardCastEntity(name: cast.name, role: cast.role, image: cast.image)).toList(),
+      crew: individualDTModel.data.crew?.map(
+          (crew) => DashboardCastEntity(name: crew.name, role: crew.role, image: crew.image)).toList(),
+      // Handle nulls for seasons, and ensure non-null values
+      seasons: individualDTModel.data.seasons.map((season) {
+        return DashboardSeasonEntity(
+          id: season.id,
+          dtId: season.dtId,
+          name: season.name,
+          // Provide default value if null
+          trailerType: season.trailerType,
+          year: season.year,
+          // Provide default value if null
+          status: season.status,
+          // Provide default value if null
+          userType: season.userType,
+          isPublish: season.isPublish,
+          // Default to false if null
+          trailerMediaFile: season.trailerMediaFile ?? '',
+          trailerMediaLink: season.trailerMediaLink ?? '',
+          episodes: season.episodes?.map((episode) {
+                return DashboardEpisodeEntity(
+                  name: episode.name,
+                  // Provide default value if null
+                  media: episode.media ?? '',
+                  type: episode.type,
+                  status: episode.status,
+                  // Provide default value if null
+                  description: episode.description,
+                  dtId: episode.dtId,
+                  // Provide default value if null
+                  id: episode.id,
+                  // Provide default value if null
+                  seasonId: episode.seasonId,
+                  // Provide default value if null
+                  link: episode.link ?? '', // Provide default value if null
+                );
+              }).toList() ??
+              [], // Ensure episodes is non-null, default to empty list
+        );
+      }).toList(), // Ensure seasons is non-null, default to empty list
+    );
   }
 
   Future<DTInfoFormEntity> fetchCategories() async {
