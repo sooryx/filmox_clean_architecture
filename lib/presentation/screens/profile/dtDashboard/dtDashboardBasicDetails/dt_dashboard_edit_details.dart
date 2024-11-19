@@ -101,6 +101,7 @@ class _EditbasicdetailsdtState extends State<Editbasicdetailsdt> {
                   minutes:
                   dtProvider.digitalTheaterDashBoardEntity?.minutes,
                 );
+                dtProvider.fetchDashboardDetails(digitalTheaterID: dtProvider.digitalTheaterDashBoardEntity?.id.toString()  ?? '0');
                 Navigator.pop(context,dtProvider);
               } catch(e) {
                 customErrorToast(context, e.toString());

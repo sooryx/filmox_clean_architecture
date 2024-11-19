@@ -1,4 +1,5 @@
 import 'package:filmox_clean_architecture/core/utils/app_constants.dart';
+import 'package:filmox_clean_architecture/core/utils/local_storage.dart';
 import 'package:filmox_clean_architecture/presentation/screens/auth/signin/signin_screen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/digitalTheater/add/add_digital_theater.dart';
 import 'package:filmox_clean_architecture/presentation/screens/games/gamesmainscreen/games_main_screen.dart';
@@ -111,7 +112,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       size: 16,
                     ),
                     onPressed: () {
-                      print('object');
+                      print('1');
                       setState(() {
                         _isCollapsed = !_isCollapsed;
                       });
@@ -203,8 +204,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: IconButton(
-                        onPressed: () {
-                          // AuthServices.logout(context);
+                        onPressed: () async{
+                          SharedPreferencesManager _sharedPreferenceManager = SharedPreferencesManager();
+                         await _sharedPreferenceManager.logout();
                         },
                         icon: const Icon(
                           Icons.logout,
@@ -238,7 +240,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
                 Expanded(
                   child: IconButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      SharedPreferencesManager _sharedPreferenceManager = SharedPreferencesManager();
+                      await _sharedPreferenceManager.logout();
                       Navigator.push(
                           context,
                           CupertinoPageRoute(

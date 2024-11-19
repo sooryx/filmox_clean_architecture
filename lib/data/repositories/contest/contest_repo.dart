@@ -17,30 +17,23 @@ class ContestMainRepo {
     return Future.value(
       dataModel.data!.liveCategories
           ?.expand(
-              (category) => category.contests!.map((contest) => ContestEntity(
+              (category) =>
+              category.contests!.map((contest) =>
+                  ContestEntity(
                     categoryName: category.title ?? '',
+                    // activeRoundID: contest.rounds!.any((round) => round.id)
+                    //     ? contest.id
+                    //     : null
+                    // ,
+
                     contestID: contest.id ?? 0,
                     mediaType: contest.mediaType ?? 1,
                     isPublished: contest.is_published,
                     name: contest.title ?? '',
                     poster: contest.poster ?? '',
-                    rounds: contest.rounds?.map((rounds) => RoundsEntity(
-                        roundNumber: rounds.roundNumber,
-                        roundType: rounds.roundType,
-                        title: rounds.title,
-                        poster: rounds.poster,
-                        startDate: rounds.startDate,
-                        voteDate: rounds.voteDate,
-                        endDate: rounds.endDate,
-                        roundDescription: rounds.roundDescription,
-                        megaRoundDescription: rounds.megaRoundDescription,
-                        previousRoundId: rounds.previousRoundId,
-                        isFinal: rounds.isFinal,
-                        isWildcard: rounds.isWildcard,
-                        isGuest: rounds.isGuest,
-                        isFinished: rounds.isFinished)).toList(),
                     banners: contest.banners!
-                        .map((banner) => BannerEntity(
+                        .map((banner) =>
+                        BannerEntity(
                             id: banner.id,
                             status: banner.status,
                             banner: banner.banner ?? '',
@@ -48,7 +41,8 @@ class ContestMainRepo {
                             type: banner.type))
                         .toList(),
                     userMedia: contest.userMedia!
-                        .map((usermedia) => UserMediaEntity(
+                        .map((usermedia) =>
+                        UserMediaEntity(
                             id: usermedia.id,
                             media: usermedia.media,
                             mediaType: usermedia.mediaType,
@@ -56,7 +50,8 @@ class ContestMainRepo {
                             status: usermedia.status))
                         .toList(),
                     guests: contest.guests!
-                        .map((guest) => GuestEntity(
+                        .map((guest) =>
+                        GuestEntity(
                             id: guest.id,
                             image: guest.image ?? '',
                             name: guest.name))
@@ -75,7 +70,9 @@ class ContestMainRepo {
     return Future.value(
       dataModel.data!.upcomingCategories
           ?.expand(
-              (category) => category.contests!.map((contest) => ContestEntity(
+              (category) =>
+              category.contests!.map((contest) =>
+                  ContestEntity(
                     categoryName: category.title ?? '',
                     mediaType: contest.mediaType ?? 1,
                     contestID: contest.id ?? 0,
@@ -83,7 +80,8 @@ class ContestMainRepo {
                     name: contest.title ?? '',
                     poster: contest.poster ?? '',
                     banners: contest.banners!
-                        .map((banner) => BannerEntity(
+                        .map((banner) =>
+                        BannerEntity(
                             id: banner.id,
                             status: banner.status,
                             banner: banner.banner ?? '',
@@ -91,7 +89,8 @@ class ContestMainRepo {
                             type: banner.type))
                         .toList(),
                     userMedia: contest.userMedia!
-                        .map((usermedia) => UserMediaEntity(
+                        .map((usermedia) =>
+                        UserMediaEntity(
                             id: usermedia.id,
                             media: usermedia.media,
                             mediaType: usermedia.mediaType,
@@ -99,7 +98,8 @@ class ContestMainRepo {
                             status: usermedia.status))
                         .toList(),
                     guests: contest.guests!
-                        .map((guest) => GuestEntity(
+                        .map((guest) =>
+                        GuestEntity(
                             id: guest.id,
                             image: guest.image ?? '',
                             name: guest.name))
@@ -118,12 +118,15 @@ class ContestMainRepo {
     return Future.value(
       dataModel.data!.finishedCategories
           ?.expand(
-              (category) => category.contests!.map((contest) => ContestEntity(
+              (category) =>
+              category.contests!.map((contest) =>
+                  ContestEntity(
                     contestID: contest.id ?? 0,
                     mediaType: contest.mediaType ?? 1,
                     isPublished: contest.is_published,
                     banners: contest.banners!
-                        .map((banner) => BannerEntity(
+                        .map((banner) =>
+                        BannerEntity(
                             id: banner.id,
                             status: banner.status,
                             banner: banner.banner ?? '',
@@ -131,7 +134,8 @@ class ContestMainRepo {
                             type: banner.type))
                         .toList(),
                     userMedia: contest.userMedia!
-                        .map((usermedia) => UserMediaEntity(
+                        .map((usermedia) =>
+                        UserMediaEntity(
                             id: usermedia.id,
                             media: usermedia.media,
                             mediaType: usermedia.mediaType,
@@ -139,7 +143,8 @@ class ContestMainRepo {
                             status: usermedia.status))
                         .toList(),
                     guests: contest.guests!
-                        .map((guest) => GuestEntity(
+                        .map((guest) =>
+                        GuestEntity(
                             id: guest.id,
                             image: guest.image ?? '',
                             name: guest.name))

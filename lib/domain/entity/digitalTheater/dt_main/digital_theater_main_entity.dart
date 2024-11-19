@@ -1,3 +1,5 @@
+import 'package:filmox_clean_architecture/core/utils/urls.dart';
+
 class BannersEntity {
   int id;
   String name;
@@ -8,9 +10,9 @@ class BannersEntity {
   BannersEntity(
       {required this.id,
       required this.name,
-      required this.banner,
+      required String banner,
       required this.type,
-      required this.isActive});
+      required this.isActive}):this.banner = type == '1'? UrlStrings.imageUrl + banner : UrlStrings.videoUrl + banner ;
 }
 
 class AllDTEntity {

@@ -53,61 +53,128 @@ class DTDashboardProvider with ChangeNotifier {
     }
   }
 
-  /*Editing the basic details*/
-  Future<void> editBasicDTDetails() async {}
-
   /*Adding the cast data*/
   Future<void> addNewCastData({
     required String dtID,
     required String name,
     required String role,
     required File imageFile,
-  }) async {}
+  }) async {
+    try{
+      final response = await _dtdashboardRepo.addNewCastData(
+        id: dtID,
+        name: name,
+        role: role,
+        image: imageFile
+      );
+      return response;
+    }catch(e){
+      print("Error :$e");
+    }
+  }
 
   /*Adding the crew data*/
-  Future<void> addNewCrewData({
-  required  String dtID,
-  required  String name,
-  required  String role,
-  required  File imageFile
-  }) async {}
+  Future<void> addNewCrewData(
+      {required String dtID,
+      required String name,
+      required String role,
+      required File imageFile}) async {}
 
   /*Delete cast data*/
-  Future<void> deleteCastData(
-  {
-  required BuildContext context,
-  required String id ,
-  required String name,
-  required String role,
-}
-      ) async {}
+  Future<void> deleteCastData({
+    required BuildContext context,
+    required String id,
+    required String name,
+    required String role,
+  }) async {}
 
   /*Delete crew data*/
   Future<void> deleteCrewData({
     required BuildContext context,
-    required String id ,
+    required String id,
     required String name,
     required String role,
-}) async {}
+  }) async {}
 
   /*To publish and unpublish the seasons*/
   Future<void> publishSeason({required String seasonID}) async {}
 
   /*Delete season data*/
-  Future<void> deleteSeason({required String digiID,required String seasonID}) async {}
+  Future<void> deleteSeason(
+      {required String digiID, required String seasonID}) async {}
 
-  Future<void>editDigitalTheaterDetails({required BuildContext context, required int id, required String category, required String title, File? poster, required String year, required String certificate, required String genre, required String language, required String storyLine, required int uploadType, required hours, required minutes})async {}
+  /*Editing the basic details*/
+  Future<void> editDigitalTheaterDetails(
+      {required BuildContext context,
+      required int id,
+      required String category,
+      required String title,
+      File? poster,
+      required String year,
+      required String certificate,
+      required String genre,
+      required String language,
+      required String storyLine,
+      required int uploadType,
+      required hours,
+      required minutes}) async {
+    try {
+      final response = await _dtdashboardRepo.editBasicDetails(
+          id: id,
+          category: category,
+          title: title,
+          poster: poster,
+          year: year,
+          certificate: certificate,
+          genre: genre,
+          language: language,
+          storyLine: storyLine,
+          uploadType: uploadType);
+      return response;
+    } catch (e) {
+      print("Error ${e.toString()}");
+    }
+    return null;
+  }
 
-  Future<void>deleteDtEpisode(int digiID, int seasonID, int episodeID)async {}
+  Future<void> deleteDtEpisode(int digiID, int seasonID, int episodeID) async {}
 
-  Future<void>sendEpisodeData(BuildContext context, String string, String seasonID, String text, String text2, File? videoFilesEpisode, String text3) async{}
+  Future<void> sendEpisodeData(
+      BuildContext context,
+      String string,
+      String seasonID,
+      String text,
+      String text2,
+      File? videoFilesEpisode,
+      String text3) async {}
 
-  addNewSeason({required String dt_id, required String title, File? trailerMediaFile, required String trailerMediaLink, required String year}) {}
+  addNewSeason(
+      {required String dt_id,
+      required String title,
+      File? trailerMediaFile,
+      required String trailerMediaLink,
+      required String year}) {}
 
-  editDtSeason(String seasonId, String text, String showYear, String text2, File? videoFilesSeason) {}
+  editDtSeason(String seasonId, String text, String showYear, String text2,
+      File? videoFilesSeason) {}
 
-  editCrewData({required String id, required String name, required String role, File? image}) {}
+  editCrewData(
+      {required String id,
+      required String name,
+      required String role,
+      File? image}) {}
 
-  editCastData({required String id, required String name, required String role, File? image}) {}
-
+  editCastData(
+      {required String id,
+      required String name,
+      required String role,
+      File? image}) async {
+    try {
+      final response = await _dtdashboardRepo.editCastData(
+          id: id, image: image, role: role, name: name);
+      return response;
+    } on Exception catch (e) {
+      rethrow;
+    }
+  }
 }

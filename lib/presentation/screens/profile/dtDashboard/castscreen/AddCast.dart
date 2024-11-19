@@ -12,41 +12,84 @@ import 'package:provider/provider.dart';
 class AddCast extends StatefulWidget {
   final String dtID;
 
-  const AddCast({super.key, required this.dtID});
+  const AddCast({Key? key, required this.dtID}) : super(key: key);
 
   @override
   _AddCastState createState() => _AddCastState();
 }
 
 class _AddCastState extends State<AddCast> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController roleController = TextEditingController();
-  String? imagePath;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _roleController = TextEditingController();
 
-  File? image;
+  File? _imageFile;
 
-  Future<void> _uploadImage() async {
+  Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       setState(() {
-        imagePath = pickedImage.path;
-        image = File(pickedImage.path);
+        _imageFile = File(pickedImage.path);
       });
     }
   }
 
   bool _validateInputs() {
-    return nameController.text.isNotEmpty &&
-        roleController.text.isNotEmpty &&
-        imagePath != null;
+    return _nameController.text.isNotEmpty &&
+        _roleController.text.isNotEmpty &&
+        _imageFile != null;
+  }
+
+  Future<void> _handleAddCast(BuildContext context) async {
+    if (!_validateInputs()) {
+      customErrorToast(
+        context,
+        'Please fill all fields and upload an image.',
+      );
+      return;
+    }
+
+    try {
+      final dashboardProvider =
+      Provider.of<DTDashboardProvider>(context, listen: false);
+
+      await dashboardProvider.addNewCastData(
+        dtID: widget.dtID,
+        name: _nameController.text,
+        role: _roleController.text,
+        imageFile: _imageFile!,
+      );
+
+      await dashboardProvider.fetchDashboardDetails(
+        digitalTheaterID: widget.dtID,
+      );
+
+      customSuccessToast(context, "Cast Added");
+      Navigator.pop(context, dashboardProvider.digitalTheaterDashBoardEntity);
+    } catch (e) {
+      customErrorToast(context, "Not Saved. Error: $e");
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _roleController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Theme.of(context).colorScheme.surface,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text('Add Cast'),
       ),
       body: Padding(
@@ -55,69 +98,43 @@ class _AddCastState extends State<AddCast> {
           height: 450.h,
           padding: EdgeInsets.all(20.dg),
           decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(30.r)),
+            color: Colors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(30.r),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: _uploadImage,
-                child: imagePath != null
+                onTap: _pickImage,
+                child: _imageFile != null
                     ? ClipRRect(
-                        borderRadius: BorderRadius.circular(30.r),
-                        child: Image.file(
-                          File(imagePath!),
-                          height: 120.h,
-                        ),
-                      )
+                  borderRadius: BorderRadius.circular(30.r),
+                  child: Image.file(
+                    _imageFile!,
+                    height: 120.h,
+                    fit: BoxFit.cover,
+                  ),
+                )
                     : Image.asset(
-                        AppConstants.uploadIcon,
-                        height: 120.h,
-                      ),
+                  AppConstants.uploadIcon,
+                  height: 120.h,
+                ),
               ),
               const SizedBox(height: 20),
               CommonWidgets.CustomTextField(
                 obscureText: false,
-                controller: nameController,
+                controller: _nameController,
                 hintText: "Name",
               ),
               SizedBox(height: 10.h),
               CommonWidgets.CustomTextField(
                 obscureText: false,
-                controller: roleController,
+                controller: _roleController,
                 hintText: "Role",
               ),
               const SizedBox(height: 20),
               TextButton(
-                onPressed: () async {
-                  if (_validateInputs()) {
-                    try {
-                      final dashboardProvider =
-                          Provider.of<DTDashboardProvider>(context,
-                              listen: false);
-                      await dashboardProvider
-                          .addNewCastData(
-                              dtID: widget.dtID,
-                              name: nameController.text,
-                              role: roleController.text,
-                              imageFile: image ?? File(''))
-                          .then(
-                        (value) async {
-                          await dashboardProvider.fetchDashboardDetails(
-                              digitalTheaterID: widget.dtID);
-                        },
-                      );
-                      customSuccessToast(context, "Cast Added");
-                      Navigator.pop(context,
-                          dashboardProvider.digitalTheaterDashBoardEntity);
-                    } catch (e) {
-                      customErrorToast(context, "Not Saved");
-                    }
-                  } else {
-                    customErrorToast(
-                        context, 'Please fill all fields and upload an image.');
-                  }
-                },
+                onPressed: () => _handleAddCast(context),
                 child: const Text('Add Cast'),
               ),
             ],

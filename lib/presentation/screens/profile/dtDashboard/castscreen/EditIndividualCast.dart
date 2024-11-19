@@ -15,13 +15,14 @@ class EditIndividualCast extends StatefulWidget {
   final TextEditingController roleController;
   final String imgFile;
   final int id;
+  final String digitalTheaterID;
 
   const EditIndividualCast(
       {super.key,
       required this.nameController,
       required this.roleController,
       required this.imgFile,
-      required this.id});
+      required this.id, required this.digitalTheaterID});
 
   @override
   State<EditIndividualCast> createState() => _EditIndividualCastState();
@@ -59,7 +60,7 @@ class _EditIndividualCastState extends State<EditIndividualCast> {
                   .then(
                 (value) async {
                   await dashboardProvider.fetchDashboardDetails(
-                      digitalTheaterID: widget.id.toString());
+                      digitalTheaterID: widget.digitalTheaterID);
                 },
               );
               customSuccessToast(context, "Cast Edited");

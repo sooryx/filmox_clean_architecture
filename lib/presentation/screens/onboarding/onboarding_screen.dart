@@ -115,6 +115,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget introPages({required String imageUrl, required BuildContext context}) {
+    print("Image URl :$imageUrl");
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -130,9 +131,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         alignment: Alignment.center,
         children: [
           CachedNetworkImage(
-            imageUrl: "https://filmox.kods.app/uploads/$imageUrl",
+            imageUrl: imageUrl,
             fit: BoxFit.fitHeight,
             height: MediaQuery.of(context).size.height,
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ],
       ),

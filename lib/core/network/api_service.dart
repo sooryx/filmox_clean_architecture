@@ -13,8 +13,7 @@ enum DefaultPageStatus { initial, loading, success, failed }
 class ApiService {
   static const String baseUrl = UrlStrings.baseUrl;
 
-  SharedPreferencesManager sharedPreferencesManager =
-  SharedPreferencesManager();
+  SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager();
 
   Future<dynamic> get(String endpoint) async {
     String? bearerToken = await SharedPreferencesManager().getAccessToken();

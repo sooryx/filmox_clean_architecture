@@ -11,6 +11,7 @@ class RcMainProvider with ChangeNotifier {
   List<ContestEntity> _liveContests = [];
   List<ContestEntity> _upcomingContests = [];
   List<ContestEntity> _finishedContests = [];
+
   DefaultPageStatus _status = DefaultPageStatus.initial;
   String _errorMessage = '';
 

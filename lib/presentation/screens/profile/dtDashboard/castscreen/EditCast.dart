@@ -158,6 +158,7 @@ class _EditCastState extends State<EditCast> {
                         },
                         child: InkWell(
                           onTap: () {
+                            print("Cast Index :${cast[index].id}");
                             Navigator.push(
                                 context,
                                 PageTransition(
@@ -170,6 +171,7 @@ class _EditCastState extends State<EditCast> {
                                           text: cast[index].role),
                                       imgFile: cast[index].image,
                                       id: cast[index].id ?? 0,
+                                      digitalTheaterID: digitalTheater?.id.toString() ?? '0',
                                     ),
                                     type:
                                     PageTransitionType.rightToLeft));
