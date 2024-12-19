@@ -4,7 +4,7 @@ import 'package:filmox_clean_architecture/data/repositories/auth/auth_repo.dart'
 import 'package:filmox_clean_architecture/domain/entity/userType/user_type_entity.dart';
 import 'package:flutter/material.dart';
 
-class AuthProvdier extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   AuthRepository authRepository = AuthRepository();
 
   TextEditingController phoneNumberController = TextEditingController();
@@ -32,6 +32,8 @@ class AuthProvdier extends ChangeNotifier {
   }
 
   String _selectedUserType = "fan";
+
+  String get selectedUserType => _selectedUserType;
 
   set selectedUserType(String value) {
     _selectedUserType = value;
@@ -64,6 +66,36 @@ class AuthProvdier extends ChangeNotifier {
       print("Other error: $e");
       throw Exception("An unexpected error occurred.");
     } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> userSignup({
+    required String name,
+    required String phoneNumber,
+    required String email,
+    required String state,
+    required String industry,
+    required String proffession,
+    required String selectedUserType,
+  }) async {
+    _status = DefaultPageStatus.loading;
+    notifyListeners();
+
+    try {
+      final response = await authRepository.signup(
+          name: name,
+          phoneNumber: phoneNumber,
+          email: email,
+          state: state,
+          industry: industry,
+          proffession: proffession,
+          selectedUserType: selectedUserType);
+      return response;
+    } catch (e) {
+      rethrow;
+    } finally {
+      _status = DefaultPageStatus.success;
       notifyListeners();
     }
   }

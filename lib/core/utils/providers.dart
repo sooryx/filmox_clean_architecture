@@ -1,3 +1,4 @@
+import 'package:filmox_clean_architecture/presentation/providers/contest/rc_result_main_screen_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/profile/profile_provider.dart';
 import 'package:filmox_clean_architecture/presentation/providers/auth/auth_provdier.dart';
@@ -25,7 +26,7 @@ import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => OnBoardingProvider(),),
-  ChangeNotifierProvider(create: (context) => AuthProvdier(),),
+  ChangeNotifierProvider(create: (context) => AuthProvider(),),
   ChangeNotifierProvider(create: (context) => DigitalTheaterProvider()..fetchApi(),),
   ChangeNotifierProvider(create: (context) => RcMainProvider()..fetchContests(),),
   ChangeNotifierProvider(create: (context) => HomeProvider()),
@@ -46,6 +47,7 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep4Provider()),
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep5Provider()),
   ChangeNotifierProvider(create: (context) => MultipleFileUploadStep5Provider()),
-  ChangeNotifierProvider(create: (context) => ProfileProvider()),
+  ChangeNotifierProvider(create: (context) => ProfileProvider()..fetchProfileData()),
   ChangeNotifierProvider(create: (context) => DTDashboardProvider()),
+  ChangeNotifierProvider(create: (context) => RegularContestMainResultScreenProvider()),
 ];

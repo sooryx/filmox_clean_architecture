@@ -230,6 +230,8 @@ class DtdashboardRepo {
         'name': name,
         'role': role
       };
+      print(fieldRequest);
+
         final Map<String, File> fileRequest = {'image': image};
         final response = await _apiService.sendMultipartRequest(
             endpoint: addCastEndpoint,

@@ -37,6 +37,7 @@ class ApiService {
 
   Future<dynamic> post(String endpoint, Map<String, dynamic> body) async {
     String? bearerToken = await SharedPreferencesManager().getAccessToken();
+
     if (await _isConnected()) {
       http.Response response = await http.post(
         Uri.parse('$baseUrl$endpoint'),
@@ -92,6 +93,8 @@ class ApiService {
     } else {
 
       MySelfColor().printError(text: '''
+      Endpoint :${UrlStrings.baseUrl+endpoint}
+      Bearer Token :${bearerToken}
       Upload failed with status code: ${response.statusCode}
       Upload failed with response body: ${responseBody}
       '''  );

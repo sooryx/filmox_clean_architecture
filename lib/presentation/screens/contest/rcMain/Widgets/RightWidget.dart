@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/domain/entity/contest/contest_entity.dart';
 import 'package:filmox_clean_architecture/presentation/screens/contest/rcFeed/rc_feed_main_screen.dart';
+import 'package:filmox_clean_architecture/presentation/screens/contest/rcResult/rc_result_main_screen.dart';
 import 'package:filmox_clean_architecture/presentation/screens/contest/rclive/rc_live_info_screen.dart';
 import 'package:filmox_clean_architecture/presentation/providers/contest/rc_main_provider.dart';
 import 'package:filmox_clean_architecture/widgets/common_widgets.dart';
@@ -230,19 +231,19 @@ class RightWidget extends StatelessWidget {
         ),
       );
     } else if (countdownText == "Voting Ended") {
-      // Navigator.push(
-      //   context,
-      //   CupertinoPageRoute(
-      //     builder: (context) => RCResultMainScreen(
-      //       contestId: currentContest.contestID ?? 0,
-      //       imageUrl: UrlStrings.imageUrl+(currentContest.poster ?? ""),
-      //       contestName: currentContest.title ?? "",
-      //       isPublished: currentContest.is_published == 1,
-      //       // contestID: currentContest.id ?? 0,
-      //       // contestName: currentContest.title ?? "",
-      //     ),
-      //   ),
-      // );
+      Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (context) => RCResultMainScreen(
+            contestId: currentContest.contestID ?? 0,
+            imageUrl: UrlStrings.imageUrl+(currentContest.poster ?? ""),
+            contestName: currentContest.name ,
+            isPublished: currentContest.isPublished == 1,
+            // contestID: currentContest.id ?? 0,
+            // contestName: currentContest.title ?? "",
+          ),
+        ),
+      );
     }
   }
 

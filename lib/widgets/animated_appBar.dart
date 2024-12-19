@@ -44,7 +44,7 @@ class _AnimatedAppBarWidgetState extends State<AnimatedAppBarWidget> {
   }
 
   Widget _animatedAppbar() {
-    final provider = Provider.of<AuthProvdier>(context, listen: false);
+    final provider = Provider.of<AuthProvider>(context, listen: false);
 
     return Row(
       children: [
@@ -107,7 +107,7 @@ class _AnimatedAppBarWidgetState extends State<AnimatedAppBarWidget> {
   }
 
   Widget _appbar() {
-    final provider = Provider.of<AuthProvdier>(context, listen: false);
+    final provider = Provider.of<AuthProvider>(context, listen: false);
 
     return Row(
       children: [

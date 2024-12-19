@@ -16,5 +16,7 @@ class UserTypeEntity {
   String image;
   String description;
 
-  UserTypeEntity({required this.image, required this.description});
+  UserTypeEntity({
+    required String image,
+    required this.description}) : image = 'https://filmoxdemo.kods.app/uploads/$image';
 }

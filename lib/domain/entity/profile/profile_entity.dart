@@ -15,7 +15,7 @@ class ProfileEntity {
 
   ProfileEntity({
     required this.name,
-    required this.profilePhoto,
+    required String profilePhoto,
     required this.type,
     required this.phone,
     required this.email, // Made nullable
@@ -24,7 +24,7 @@ class ProfileEntity {
     required this.state,
     required this.coverPictures,
     required this.digitalTheater,
-  });
+  }) : profilePhoto = UrlStrings.imageUrl + profilePhoto;
 }
 
 class DigitalTheatreProfileEntity {

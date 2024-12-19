@@ -85,3 +85,20 @@ class UserMediaEntity {
             : '${UrlStrings.videoUrl}$media';
 }
 
+
+class RoundsEntity{
+  String id;
+  bool isActive;
+  DateTime startDate;
+  DateTime voteDate;
+  DateTime endDate;
+
+  RoundsEntity(
+  {
+   required this.id,
+   required this.isActive,
+   required this.startDate,
+   required this.voteDate,
+   required this.endDate
+});
+}

@@ -638,25 +638,25 @@ class _DtDashboardScreenState extends State<DtDashboardScreen> {
           ),
           title: Hero(
               tag: dtProvider!.poster,
-              child: Text(dtProvider?.title ?? '',style: Theme.of(context).textTheme.headlineMedium,)),
+              child: Text(dtProvider.title ?? '',style: Theme.of(context).textTheme.headlineMedium,)),
         ),
         body: digitalTheaterProvider.status == DefaultPageStatus.loading
             ? const Loadingscreen()
             : Container(
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(dtProvider!.poster),
+                        image: NetworkImage(dtProvider.poster),
                         fit: BoxFit.cover,
                         opacity: 0.07)),
                 child: ListView(
                   children: [
                     _buildHeader(),
                     _buildCastAndCrew(
-                        dtId: dtProvider?.id,
-                        uploadType: dtProvider?.uploadType ?? 1,
-                        castList: dtProvider?.cast,
-                        crewList: dtProvider?.crew),
-                    dtProvider?.uploadType == 1
+                        dtId: dtProvider.id,
+                        uploadType: dtProvider.uploadType ?? 1,
+                        castList: dtProvider.cast,
+                        crewList: dtProvider.crew),
+                    dtProvider.uploadType == 1
                         ? singleFileUploadItems(dtProvider)
                         : multiplefileUploadItems(dtProvider)
                   ],

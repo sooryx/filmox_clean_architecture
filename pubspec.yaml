@@ -73,6 +73,7 @@ dependencies:
   flutter_staggered_grid_view:
   toggle_switch:
   sliding_up_panel:
+  flashy_tab_bar2: ^0.0.10
 
 dev_dependencies:
   flutter_test:

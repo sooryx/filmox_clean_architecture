@@ -679,7 +679,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               child: CircleAvatar(
                 backgroundColor: const Color(0xFF1CB5E0),
                 backgroundImage: CachedNetworkImageProvider(
-                    "${UrlStrings.imageUrl}$profilePhoto"),
+                    "$profilePhoto"),
                 radius: 30.r,
               ),
             ),

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:filmox_clean_architecture/core/utils/urls.dart';
 import 'package:filmox_clean_architecture/presentation/providers/digitalTheater/dt_dashboard_provider/dt_dashboard_provider.dart';
 import 'package:filmox_clean_architecture/widgets/custom_popups.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
@@ -79,13 +80,10 @@ class _EditCastState extends State<EditCast> {
                   SizedBox(height: 30.h,),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: AddCast(
-                                dtID: widget.dtId ,
-                              ),
-                              type: PageTransitionType.rightToLeft));
+                   Navigator.push(context,
+                               CupertinoPageRoute(builder: (context) =>  AddCast(
+                                 dtID: widget.dtId ,
+                               ),));
                     },
                     child: Center(
                       child: Container(
@@ -285,13 +283,10 @@ class _EditCastState extends State<EditCast> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              child: AddCast(
-                                dtID: widget.dtId,
-                              ),
-                              type: PageTransitionType.rightToLeft));
+                        Navigator.push(context,
+                                    CupertinoPageRoute(builder: (context) => AddCast(
+                                      dtID: widget.dtId,
+                                    ),));
                     },
                     child: Center(
                       child: Container(

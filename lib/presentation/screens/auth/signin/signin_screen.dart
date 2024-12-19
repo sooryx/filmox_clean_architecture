@@ -15,7 +15,7 @@ class Signinscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthProvdier>(context, listen: true);
+    final provider = Provider.of<AuthProvider>(context, listen: true);
     return Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -104,7 +104,9 @@ class Signinscreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        final provider = Provider.of<AuthProvider>(context,listen: false);
+                        await provider.fetchUserTypes();
                         Navigator.push(
                           context,
                           CupertinoPageRoute(

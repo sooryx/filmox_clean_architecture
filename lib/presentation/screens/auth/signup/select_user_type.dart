@@ -19,6 +19,8 @@ class SelectUserType extends StatefulWidget {
 class _SelectUserTypeState extends State<SelectUserType> {
   int selectedIndexForShowingArrowInUserTpe = -1;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +44,7 @@ class _SelectUserTypeState extends State<SelectUserType> {
               fontSize: 22.sp),
         ),
       ),
-      body: Consumer<AuthProvdier>(
+      body: Consumer<AuthProvider>(
         builder: (context, provider, child) {
           return Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -58,17 +60,21 @@ class _SelectUserTypeState extends State<SelectUserType> {
                         borderRadius: BorderRadius.circular(30.r),
                         onTap: () {
                           setState(() {
-
                             selectedIndexForShowingArrowInUserTpe = index;
                           });
-                          provider.selectedUserType = index == 0
-                              ? "vendor"
-                              : index == 1
-                              ? "artist"
-                              : index == 2
-                              ? "fan"
-                              : "";
+
+                          // Update the provider outside the `setState` call
+                          Future.microtask(() {
+                            provider.selectedUserType = index == 0
+                                ? "vendor"
+                                : index == 1
+                                ? "artist"
+                                : index == 2
+                                ? "fan"
+                                : "";
+                          });
                         },
+
                         child: AnimatedContainer(
                           duration: Duration(milliseconds: 500),
                           decoration: BoxDecoration(
@@ -84,7 +90,7 @@ class _SelectUserTypeState extends State<SelectUserType> {
                           child: BannerWidget(
                             drawerContent: userType.description ,
                             imagePath:
-                            '${UrlStrings.baseUrl}/uploads/${userType.image}',
+                            userType.image,
                             fallbackImagePath: UrlStrings.errorImage,
                           ).animate().slideX(delay: 50.ms * (index + 1)),
                         )..animate().scaleX(duration: 2.seconds),
@@ -109,7 +115,7 @@ class _SelectUserTypeState extends State<SelectUserType> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const SignupScreen(),
+            builder: (context) => const SignUpScreen(),
           ),
         );
       },

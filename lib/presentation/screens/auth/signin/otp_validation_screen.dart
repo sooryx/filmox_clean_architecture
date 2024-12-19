@@ -19,17 +19,17 @@ class OtpValidate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthProvdier>(context, listen: true);
+    final provider = Provider.of<AuthProvider>(context, listen: true);
 
-    if (provider.status != DefaultPageStatus.success) {
-      return Scaffold(
-          appBar: _buildAppBar(context),
-          body: provider.status == DefaultPageStatus.loading
-              ? const Center(child: Loadingscreen())
-              : _buildBody(context));
+    if (provider.status == DefaultPageStatus.success ||
+        provider.status == DefaultPageStatus.initial) {
+      return Scaffold(appBar: _buildAppBar(context), body: _buildBody(context));
+    } else if (provider.status == DefaultPageStatus.loading) {
+      return Center(
+        child: Loadingscreen(),
+      );
     }
-    return Center(child: Text("Error"),);
-
+    return Text("error");
   }
 
   Widget _buildBody(context) {
@@ -140,27 +140,28 @@ class OtpValidate extends StatelessWidget {
         keyboardType: TextInputType.phone,
         onCodeChanged: (String code) {},
         onSubmit: (String verificationCode) async {
-          _handleSignIn(context);
+          fromreg
+              ? Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => EntryPoint()))
+              : _handleSignIn(context);
         });
   }
 
   void _handleSignIn(BuildContext context) async {
-    final provider = Provider.of<AuthProvdier>(context, listen: false);
+    final provider = Provider.of<AuthProvider>(context, listen: false);
 
     try {
       await provider.userSignin();
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => EntryPoint()));
+      Navigator.push(
+          context, CupertinoPageRoute(builder: (context) => EntryPoint()));
     } on NoInternetException catch (e) {
       customErrorToast(context, e.message);
     } on PageNotFoundException catch (e) {
       customErrorToast(context, 'Invalid token. Please log in again.');
-    } on ServerException catch(e){
+    } on ServerException catch (e) {
       customErrorToast(context, e.toString());
-
-    }
-    catch (e) {
+    } catch (e) {
       customErrorToast(context, 'An error occurred: $e');
     }
   }
-
 }
